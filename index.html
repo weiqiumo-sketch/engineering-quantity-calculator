@@ -53,18 +53,21 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
 .measure-tip{margin:10px 0 0;font-size:11.5px;line-height:1.6;color:#a58c9b}
 @media(max-width:600px){.table tr,.calc-table tr{background:#fdf7fb}.calc-item .calc-preset{min-height:38px;font-size:12px}}
 @media print{body{background:#fff!important}.top{background:#fff!important;color:#3f2d3a!important}.top p{color:#8b7484!important}.top::after{display:none}}
+.account-btn{white-space:nowrap}.account-btn.signed-in{background:#ffffff3b;border-color:#ffffff8a}.cloud-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#f4c9da;margin-right:6px;vertical-align:1px}.cloud-dot.online{background:#b9f0d5}.cloud-dot.syncing{background:#ffe0a6}.cloud-dot.error{background:#ffb3c1}.modal-backdrop{position:fixed;inset:0;z-index:1000;background:#3f2d3a70;backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:18px}.modal-backdrop.open{display:flex}.modal-card{width:min(460px,100%);max-height:calc(100vh - 36px);overflow:auto;background:#fffafc;border:1px solid #f0dbe6;border-radius:20px;box-shadow:0 24px 80px #4b203844;padding:22px}.modal-card.wide{width:min(920px,100%)}.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:16px}.modal-head h2{margin:0;font-size:20px}.modal-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.modal-close{border:0;background:#fbeef5;color:#8b5370;border-radius:50%;width:34px;height:34px;font-size:19px;line-height:1}.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:#f8edf3;border-radius:11px;padding:4px;margin-bottom:16px}.auth-tab{border:0;background:transparent;color:var(--muted);padding:9px;border-radius:8px;font-weight:700}.auth-tab.active{background:#fff;color:#a84e76;box-shadow:0 2px 8px #ad66851a}.auth-field{margin-bottom:12px}.auth-field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:5px}.auth-field input{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#fff;color:var(--ink);font-size:16px}.auth-submit{width:100%;margin-top:4px}.auth-message{min-height:20px;margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.55}.auth-message.error{color:#b94566}.auth-message.ok{color:#39765c}.account-card{background:#fdf4f8;border:1px solid #f3dfe9;border-radius:14px;padding:14px;margin-bottom:14px}.account-card strong{display:block;font-size:16px;color:#8e4164}.account-card span{display:block;font-size:12px;color:var(--muted);margin-top:4px;word-break:break-all}.account-actions{display:flex;gap:8px;flex-wrap:wrap}.admin-panel{margin-top:14px}.admin-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.admin-metric{background:#fdf4f8;border:1px solid #f3dfe9;border-radius:12px;padding:12px}.admin-metric span{display:block;color:var(--muted);font-size:11px}.admin-metric strong{display:block;color:#a54b74;font-size:20px;margin-top:3px}.admin-users{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px}.admin-user-chip{background:#f9edf4;border:1px solid #f2dce7;border-radius:999px;padding:6px 9px;font-size:11px;color:#765464}.admin-records{display:grid;gap:9px}.admin-record{border:1px solid #f1dfe8;border-radius:12px;padding:12px;background:#fff}.admin-record-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.admin-record-head b{font-size:14px}.admin-record-head small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.admin-record-metrics{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}.admin-record-metrics span{background:#fcf4f8;border-radius:7px;padding:5px 7px;font-size:11px;color:#765464}.admin-detail{margin-top:10px;border-top:1px solid #f5e7ee;padding-top:9px}.admin-detail[hidden]{display:none}.admin-detail-line{display:flex;justify-content:space-between;gap:10px;padding:4px 0;font-size:11px;color:#735566}.admin-detail-line strong{font-variant-numeric:tabular-nums;color:#4f3947}.admin-empty{padding:18px;text-align:center;color:var(--muted);font-size:13px}.admin-toolbar{display:flex;gap:7px;flex-wrap:wrap}.admin-panel[hidden]{display:none!important}@media(max-width:600px){.top-actions{grid-template-columns:repeat(3,1fr)}.account-btn{grid-column:auto}.admin-summary{grid-template-columns:1fr}.admin-record-head{flex-direction:column}.modal-card{padding:17px;border-radius:16px}}
 </style></head>
 <body>
-<header class="top"><div><h1>扎心测量-瓷片面积</h1><p>现场实测 · 分项计量 · 扣减明细</p></div><div class="top-actions"><button class="btn" id="newUnitBtn">＋ 新建单元</button><button class="btn" id="saveBtn">保存单元</button><button class="btn" id="exportBtn">导出 XLSX</button><button class="btn" id="printBtn">打印 / 存 PDF</button></div></header>
+<header class="top"><div><h1>扎心测量-瓷片面积</h1><p>现场实测 · 分项计量 · 扣减明细</p></div><div class="top-actions"><button class="btn account-btn" id="accountBtn" type="button"><span class="cloud-dot" id="cloudDot"></span><span id="accountBtnText">登录 / 注册</span></button><button class="btn" id="adminBtn" type="button" hidden>主账号后台</button><button class="btn" id="newUnitBtn">＋ 新建单元</button><button class="btn" id="saveBtn">保存单元</button><button class="btn" id="exportBtn">导出 XLSX</button><button class="btn" id="printBtn">打印 / 存 PDF</button></div></header>
 <main class="wrap">
 <div class="notice">填写墙段长度、瓷片铺贴高度、瓷片规格和洞口尺寸。墙面工程量只计算瓷片铺贴面积；瓷片数量按地面与墙面净面积估算。</div>
-<section class="panel records-panel"><div class="panel-head"><div><h2>已保存的测量单元</h2><p>每套单元独立保存；打开后继续填写，修改会自动保存到该记录。</p></div><div class="record-actions"><span class="record-count" id="recordCount">0 条记录</span><button class="btn" id="toggleRecords" type="button">展开记录</button></div></div><div class="panel-body" id="recordsBody"><div class="records-toolbar"><label class="records-check"><input type="checkbox" id="selectAllRecords"> 全选</label><span class="records-selected" id="selectedCount">已选 0 / 0 条</span><div class="records-tools"><button class="btn" id="exportBatch" type="button" disabled>合并导出</button><button class="btn" id="exportEach" type="button" disabled>逐个导出</button><button class="btn danger" id="deleteSelected" type="button" disabled>删除选中</button></div></div><div id="recordsList" class="records-list"></div></div></section><section class="summary"><div class="stat"><span>地砖净面积</span><strong id="sumFloor">0.00 m²</strong><small>房间地面减墙体/柱体占地与不铺区域</small></div><div class="stat"><span>墙砖净面积</span><strong id="sumTile">0.00 m²</strong><small>铺贴范围减既有瓷片及洞口</small></div><div class="stat"><span>墙砖铺贴基准面积</span><strong id="sumGross">0.00 m²</strong><small>墙段长度 × 墙砖铺贴高度</small></div></section>
+<section class="panel records-panel"><div class="panel-head"><div><h2>已保存的测量单元</h2><p>登录后自动同步到云端；每套单元独立保存，修改会自动更新。</p></div><div class="record-actions"><span class="record-count" id="recordCount">0 条记录</span><button class="btn" id="toggleRecords" type="button">展开记录</button></div></div><div class="panel-body" id="recordsBody"><div class="records-toolbar"><label class="records-check"><input type="checkbox" id="selectAllRecords"> 全选</label><span class="records-selected" id="selectedCount">已选 0 / 0 条</span><div class="records-tools"><button class="btn" id="exportBatch" type="button" disabled>合并导出</button><button class="btn" id="exportEach" type="button" disabled>逐个导出</button><button class="btn danger" id="deleteSelected" type="button" disabled>删除选中</button></div></div><div id="recordsList" class="records-list"></div></div></section><section class="panel admin-panel" id="adminPanel" hidden><div class="panel-head"><div><h2>主账号后台</h2><p>查看所有测试账号及其最新测量结果，并可合并导出。</p></div><div class="admin-toolbar"><button class="btn" id="adminRefresh" type="button">刷新</button><button class="btn primary" id="adminExport" type="button">导出全部</button></div></div><div class="panel-body"><div class="admin-summary" id="adminSummary"></div><div class="admin-users" id="adminUsers"></div><div class="admin-records" id="adminRecords"><div class="admin-empty">正在读取云端数据…</div></div></div></section><section class="summary"><div class="stat"><span>地砖净面积</span><strong id="sumFloor">0.00 m²</strong><small>房间地面减墙体/柱体占地与不铺区域</small></div><div class="stat"><span>墙砖净面积</span><strong id="sumTile">0.00 m²</strong><small>铺贴范围减既有瓷片及洞口</small></div><div class="stat"><span>墙砖铺贴基准面积</span><strong id="sumGross">0.00 m²</strong><small>墙段长度 × 每段墙砖铺贴高度</small></div></section>
 <section class="panel selection-panel"><div class="panel-head"><div><h2>选择测量对象</h2><p>先选户型，再选项目/单元，最后选择要测量的地面或墙面。</p></div></div><div class="panel-body"><div class="field-grid selection-grid"><div class="field"><label>户型</label><select id="layoutPreset"><option value="single">单间（含卫生间、阳台）</option><option value="onebed">一房一厅（含卫生间、阳台）</option><option value="twobed">两房一厅（含卫生间、阳台）</option></select></div><div class="field"><label>项目 / 单元名称</label><input id="layoutName" placeholder="例如：A栋 302"></div><div class="field"><label>楼层</label><input id="floor" placeholder="例如：3F / 3楼"></div><div class="field"><label>选择单元空间</label><select id="unitSelector"></select></div><div class="field"><label>选择要测量的内容</label><select id="measureSelector"></select></div></div><div id="measureEditor" class="measure-editor"></div><details class="tile-spec-details" open><summary>瓷片类型与规格</summary><div class="field-grid"><div class="field"><label>瓷片类型</label><select id="tileType"><option>瓷片</option><option>釉面墙砖</option><option>通体砖</option><option>仿古砖</option><option>马赛克</option><option>岩板</option><option>其他</option></select></div><div class="field"><label>瓷片规格 (cm)</label><div style="display:flex;gap:6px"><input id="tileWidth" type="number" min="0" step="1" placeholder="宽"><input id="tileHeight" type="number" min="0" step="1" placeholder="高"></div></div><div class="field"><label>损耗率 (%)</label><input id="tileWaste" type="number" min="0" step="0.5" value="5"></div></div></details><input id="spaceFloorTotal" type="hidden"><select id="newSpaceType" hidden></select><div id="spaces" class="space-list"></div></div></section><section class="panel plan-builder"><div class="panel-head"><div><h2>第二步：在户型图上放置建筑属性</h2><p>先点下方构件，再点户型图中的房间，即可插入一条对应记录。</p></div></div><div class="panel-body"><div class="plan-toolbar"><span class="plan-prompt">选择要插入的项目</span><div class="palette"><button class="add component" data-kind="door" data-name="门洞" data-target="both">＋ 门洞</button><button class="add component" data-kind="window" data-name="窗洞" data-target="both">＋ 窗洞</button><button class="add component" data-kind="existing" data-name="既有墙砖" data-target="tile">＋ 既有墙砖</button><button class="add component" data-kind="tileadd" data-name="梁 / 柱墙面" data-target="tile">＋ 梁 / 柱墙面</button><button class="add component" data-kind="floorwall" data-name="墙体占地" data-target="floor">＋ 墙体占地</button><button class="add component" data-kind="floorcolumn" data-name="柱体占地" data-target="floor">＋ 柱体占地</button></div></div><div class="plan" id="plan"></div><p class="hint">添加后在下方明细中填写宽、高或直接填面积；面积会自动扣减或计入。户型示意图用于定位房间，非比例施工图。</p></div></section><section class="legacy-floor panel"><div class="panel-head"><div><h2>房间与地面</h2><p>规则矩形房间可用长宽计算；不规则地面可直接填写实测总面积。</p></div></div><div class="panel-body"><div class="field-grid"><div class="field"><label>项目 / 房间名称</label><input id="roomName" value="房间 1" placeholder="例如：卫生间"></div><div class="field"><label>房间长度</label><div class="unit"><input id="roomL" type="number" min="0" step="0.01" placeholder="可留空"><i>厘米</i></div></div><div class="field"><label>房间宽度</label><div class="unit"><input id="roomW" type="number" min="0" step="0.01" placeholder="可留空"><i>厘米</i></div></div><div class="field"><label>地面实测面积（覆盖长×宽）</label><div class="unit"><input id="floorArea" type="number" min="0" step="0.01" placeholder="选填"><i>m²</i></div></div></div><div class="field-grid" style="margin-top:12px"><div class="field"><label>地面不铺砖区域面积</label><div class="unit"><input id="floorNoTile" type="number" min="0" step="0.01" value="0"><i>m²</i></div></div><div class="field"><label>地面扣减：墙体占地</label><div class="unit"><input id="wallFoot" type="number" min="0" step="0.01" value="0"><i>m²</i></div></div><div class="field"><label>地面扣减：柱体占地</label><div class="unit"><input id="columnFoot" type="number" min="0" step="0.01" value="0"><i>m²</i></div></div><div class="field"><label>地面砖已铺部分面积（扣减）</label><div class="unit"><input id="floorExisting" type="number" min="0" step="0.01" value="0"><i>m²</i></div></div></div><p class="hint">地面净面积 = 实测地面面积 − 墙体/柱体占地 − 不铺区域 − 已铺部分。扣减项只按实际不施工范围填写，避免重复扣减。</p></div></section>
 <section class="panel"><div class="panel-head"><div><h2>第二步：大测量基数</h2><p>地面按各空间面积合计；墙面按每段墙长 × 瓷片铺贴高度合计。</p></div></div><div class="panel-body"><div class="base-grid"><div><span>地砖大测量</span><strong id="baseFloor">0.00 m²</strong></div><div><span>墙砖大测量</span><strong id="baseWall">0.00 m²</strong></div></div></div></section><section class="panel legacy-walls"><div class="panel-head"><div><h2>墙段铺贴测量</h2><p>按户型生成的墙面分别填写墙长和瓷片铺贴高度。</p></div><button class="add" id="addWall">＋ 添加墙段</button></div><div class="panel-body"><div class="tablewrap"><table class="table"><thead><tr><th>墙面/编号</th><th>长度 (cm)</th><th class="hide-wall-calc">层高 (cm)</th><th class="hide-wall-calc">新建砖墙高 (cm)</th><th>墙砖铺贴高 (cm)</th><th>斜边/辅助长度 (cm)</th><th></th></tr></thead><tbody id="wallRows"></tbody></table></div><p class="hint">墙砖面积按墙段长度 × 墙砖铺贴高度计算；异形边可用“辅助长度”记录现场辅助尺寸。转角闭合可在下方记录核对值。</p><div class="field-grid" style="margin-top:12px"><div class="field"><label>平面周长实测 / 闭合核对值</label><div class="unit"><input id="perimeterCheck" type="number" min="0" step="0.01" placeholder="选填"><i>厘米</i></div></div><div class="field"><label>草图闭合差</label><div class="unit"><input id="closureDiff" type="number" step="0.01" placeholder="选填"><i>厘米</i></div></div></div></div></section>
 <section class="panel measure-mutation-add"><div class="panel-head"><div><h2>第三步：增加部分</h2><p>填写自定义名称，选择计入地砖或墙砖，再填长和宽自动计算面积。</p></div><button class="add" id="addAddition">＋ 添加增加项</button></div><div class="panel-body"><div class="tablewrap"><table class="table calc-table"><thead><tr><th>名称</th><th>计入范围</th><th>尺寸一 (cm)</th><th>尺寸二 (cm)</th><th>自动面积 (m²)</th><th></th></tr></thead><tbody id="additionRows"></tbody></table></div></div></section>
 <section class="panel measure-mutation-deduct"><div class="panel-head"><div><h2>第四步：扣减部分</h2><p>填写自定义名称，选择扣减地砖或墙砖，再填长和宽自动计算面积。</p></div><button class="add" id="addDeduction">＋ 添加扣减项</button></div><div class="panel-body"><div class="tablewrap"><table class="table calc-table"><thead><tr><th>名称</th><th>扣减范围</th><th>尺寸一 (cm)</th><th>尺寸二 (cm)</th><th>自动面积 (m²)</th><th></th></tr></thead><tbody id="deductionRows"></tbody></table></div><p class="hint">门洞、窗洞、已有瓷片、柱体占地等，都可用自己的名称添加；范围选择墙砖或地砖。</p></div></section><section class="panel legacy-components"><div class="panel-head"><div><h2>第三步：添加门窗、梁柱与既有饰面</h2><p>按所属空间和墙面定位，计算瓷片铺贴范围及扣减。</p></div><button class="add" id="addDed">＋ 添加项目</button></div><div class="panel-body"><div class="tablewrap"><table class="table"><thead><tr><th>所属墙面</th><th>扣减 / 计入内容</th><th>名称/位置</th><th>宽/长 (cm)</th><th>高 (cm)</th><th>自动面积 (m²)</th><th>计入/扣除项目</th><th></th></tr></thead><tbody id="dedRows"></tbody></table></div><p class="hint">先从下拉框选扣减或计入内容，再填写长/宽和高/厚度；面积栏自动按两项尺寸相乘，无需手填。门窗洞口默认按选定范围扣减，既有墙砖自动从墙砖扣除。</p></div></section>
 <section class="panel"><div class="panel-head"><div><h2>工程量计算明细</h2><p>地砖、墙砖分开汇总：净面积 = 大测量 + 增加部分 − 扣减部分。明细实时更新，可打印或导出。</p></div></div><div class="panel-body"><div class="results"><div class="resultbox"><h3>工程量汇总</h3><div id="quantityDetails"></div></div><div class="resultbox"><h3>扣减 / 增项明细</h3><div id="dedDetails"></div></div></div><div class="chips" id="checks"></div></div></section>
-<section class="panel estimate-panel"><div class="panel-head"><div><h2>瓷片数量估算</h2><p>按地砖净面积与墙砖净面积合计，再根据单片规格估算片数。</p></div></div><div class="panel-body"><div class="estimate-grid"><div class="estimate-stat"><span>瓷片铺贴总面积</span><strong id="estimateArea">0.00 m²</strong></div><div class="estimate-stat"><span>单片覆盖面积</span><strong id="tileUnitArea">— m²</strong></div><div class="estimate-stat"><span>理论用量</span><strong id="tileNetPieces">— 片</strong></div><div class="estimate-stat recommend"><span>建议采购片数</span><strong id="tileBuyPieces">— 片</strong></div></div><div class="field waste-field"><label>损耗率（可调整）</label><div class="unit"><input id="tileWasteEstimate" type="number" min="0" step="0.5" value="5"><i>%</i></div></div><p class="hint" id="tileQtyHint">填写瓷片宽、高规格后自动估算。</p></div></section><div class="foot">数据自动保存在此浏览器。现场计量规则因合同约定不同，请核对后确认最终工程量。</div></main><div id="toast" class="toast"></div>
+<section class="panel estimate-panel"><div class="panel-head"><div><h2>瓷片数量估算</h2><p>按地砖净面积与墙砖净面积合计，再根据单片规格估算片数。</p></div></div><div class="panel-body"><div class="estimate-grid"><div class="estimate-stat"><span>瓷片铺贴总面积</span><strong id="estimateArea">0.00 m²</strong></div><div class="estimate-stat"><span>单片覆盖面积</span><strong id="tileUnitArea">— m²</strong></div><div class="estimate-stat"><span>理论用量</span><strong id="tileNetPieces">— 片</strong></div><div class="estimate-stat recommend"><span>建议采购片数</span><strong id="tileBuyPieces">— 片</strong></div></div><div class="field waste-field"><label>损耗率（可调整）</label><div class="unit"><input id="tileWasteEstimate" type="number" min="0" step="0.5" value="5"><i>%</i></div></div><p class="hint" id="tileQtyHint">填写瓷片宽、高规格后自动估算。</p></div></section><div class="foot">未登录时数据只保存在此浏览器；登录后会自动同步到云端。现场计量规则因合同约定不同，请核对后确认最终工程量。</div></main>
+<div class="modal-backdrop" id="authModal" aria-hidden="true"><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="authTitle"><div class="modal-head"><div><h2 id="authTitle">账号登录</h2><p id="authSubtitle">登录后，测量结果会安全同步到你的账号。</p></div><button class="modal-close" id="authClose" type="button" aria-label="关闭">×</button></div><div id="authSignedOut"><div class="auth-tabs"><button class="auth-tab active" id="authLoginTab" type="button">登录</button><button class="auth-tab" id="authRegisterTab" type="button">注册新账号</button></div><form id="authForm"><div class="auth-field" id="authNameField" hidden><label for="authName">姓名 / 显示名称</label><input id="authName" autocomplete="name" placeholder="例如：张三"></div><div class="auth-field"><label for="authEmail">账号（邮箱）</label><input id="authEmail" type="email" autocomplete="email" required placeholder="name@example.com"></div><div class="auth-field"><label for="authPassword">密码</label><input id="authPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="至少 6 位"></div><div class="auth-field" id="authAdminCodeField" hidden><label for="authAdminCode">主账号授权码（选填）</label><input id="authAdminCode" autocomplete="off" placeholder="普通测试账号请留空"></div><button class="btn primary auth-submit" id="authSubmit" type="submit">登录</button><p class="auth-message" id="authMessage"></p></form></div><div id="authSignedIn" hidden><div class="account-card"><strong id="authDisplayName">已登录</strong><span id="authUserEmail"></span><span id="authCloudStatus"></span></div><div class="account-actions"><button class="btn" id="authAccountClose" type="button">继续测量</button><button class="btn danger" id="authSignOut" type="button">退出登录</button></div></div></div></div>
+<div id="toast" class="toast"></div>
 <script>
 /* 扎心测量-瓷片面积 —— 脚本
    已修复：
@@ -145,6 +148,18 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
   var addTableWrap = null;
   var dedTableWrap = null;
   var selectedRecordIds = Object.create(null);
+  var cloudUserId = null;
+  var CLOUD_MIGRATION_KEY = 'cementCalcCloudMigratedV1';
+
+  function storageKey(base) {
+    return cloudUserId ? base + ':user:' + cloudUserId : base;
+  }
+
+  function emitQuantityEvent(name, detail) {
+    try {
+      window.dispatchEvent(new CustomEvent(name, { detail: detail }));
+    } catch (e) { /* 事件通知失败不影响本地保存 */ }
+  }
 
   /* ---------------- 提示 ---------------- */
   function toast(text) {
@@ -723,7 +738,7 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
   /* ---------------- 存取 ---------------- */
   function readRecords() {
     try {
-      var raw = localStorage.getItem(RECORDS_KEY);
+      var raw = localStorage.getItem(storageKey(RECORDS_KEY));
       var list = raw ? JSON.parse(raw) : [];
       return Array.isArray(list) ? list : [];
     } catch (e) {
@@ -732,7 +747,7 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
   }
 
   function writeRecords(list) {
-    localStorage.setItem(RECORDS_KEY, JSON.stringify(list));
+    localStorage.setItem(storageKey(RECORDS_KEY), JSON.stringify(list));
   }
 
   function collectState() {
@@ -779,8 +794,8 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
   function saveNow(show) {
     try {
       var current = collectState();
-      localStorage.setItem(DRAFT_KEY, JSON.stringify(current));
-      localStorage.setItem(ACTIVE_KEY, activeRecordId || '');
+      localStorage.setItem(storageKey(DRAFT_KEY), JSON.stringify(current));
+      localStorage.setItem(storageKey(ACTIVE_KEY), activeRecordId || '');
       if (activeRecordId && !isRestoring) {
         var list = readRecords();
         var idx = list.findIndex(function (r) { return r.id === activeRecordId; });
@@ -788,6 +803,7 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
           list[idx].state = current;
           list[idx].updated = Date.now();
           writeRecords(list);
+          emitQuantityEvent('quantity:recordSaved', list[idx]);
         }
       }
       renderRecords();
@@ -852,13 +868,13 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
   function loadState() {
     var saved = null;
     try {
-      var raw = localStorage.getItem(DRAFT_KEY) || localStorage.getItem(LEGACY_DRAFT_KEY);
+      var raw = localStorage.getItem(storageKey(DRAFT_KEY)) || localStorage.getItem(storageKey(LEGACY_DRAFT_KEY));
       if (raw) saved = JSON.parse(raw);
     } catch (e) {
       saved = null;
     }
     try {
-      activeRecordId = localStorage.getItem(ACTIVE_KEY) || null;
+      activeRecordId = localStorage.getItem(storageKey(ACTIVE_KEY)) || null;
     } catch (e) {
       activeRecordId = null;
     }
@@ -967,9 +983,10 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
     var activeDeleted = !!activeRecordId && ids.indexOf(activeRecordId) >= 0;
     if (activeDeleted) {
       activeRecordId = null;
-      try { localStorage.setItem(ACTIVE_KEY, ''); } catch (e) { /* 忽略 */ }
+      try { localStorage.setItem(storageKey(ACTIVE_KEY), ''); } catch (e) { /* 忽略 */ }
     }
     lastRecordsHtml = null;
+    emitQuantityEvent('quantity:recordDeleted', ids.slice());
     renderRecords();
     updateSelectionUi();
     toast(activeDeleted
@@ -996,8 +1013,9 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
       }
 
       writeRecords(list);
-      localStorage.setItem(ACTIVE_KEY, activeRecordId);
-      localStorage.setItem(DRAFT_KEY, JSON.stringify(current));
+      localStorage.setItem(storageKey(ACTIVE_KEY), activeRecordId);
+      localStorage.setItem(storageKey(DRAFT_KEY), JSON.stringify(current));
+      emitQuantityEvent('quantity:recordSaved', list.filter(function (r) { return r.id === activeRecordId; })[0]);
       renderRecords();
       if (!silent) toast('单元记录已保存');
       return true;
@@ -1018,22 +1036,18 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
     activeRecordId = id;
     loadData(record.state);
     try {
-      localStorage.setItem(ACTIVE_KEY, id);
-      localStorage.setItem(DRAFT_KEY, JSON.stringify(record.state));
+      localStorage.setItem(storageKey(ACTIVE_KEY), id);
+      localStorage.setItem(storageKey(DRAFT_KEY), JSON.stringify(record.state));
     } catch (e) { /* 忽略存储异常 */ }
     renderRecords();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     toast('已打开「' + (record.name || '未命名单元') + '」，修改会自动保存');
   }
 
-  function newUnit() {
-    if (activeRecordId) saveRecord({ silent: true });
-    activeRecordId = null;
-    try { localStorage.setItem(ACTIVE_KEY, ''); } catch (e) { /* 忽略 */ }
-
-    var preset = $('#layoutPreset').value || 'single';
+  function freshState(preset) {
+    preset = preset || 'single';
     var names = LAYOUTS[preset] || LAYOUTS.single;
-    var fresh = {
+    return {
       fields: {
         roomName: '房间 1', roomL: '', roomW: '', floorArea: '', floorNoTile: '0',
         wallFoot: '0', columnFoot: '0', floorExisting: '0',
@@ -1048,10 +1062,98 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
       }, []),
       items: []
     };
+  }
+
+  function newUnit() {
+    if (activeRecordId) saveRecord({ silent: true });
+    activeRecordId = null;
+    try { localStorage.setItem(storageKey(ACTIVE_KEY), ''); } catch (e) { /* 忽略 */ }
+
+    var fresh = freshState($('#layoutPreset').value || 'single');
     loadData(fresh);
     renderRecords();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     toast('已新建测量单元');
+  }
+
+  function resetWorkspace() {
+    var hasDraft = false;
+    try { hasDraft = !!localStorage.getItem(storageKey(DRAFT_KEY)); } catch (e) { /* 忽略 */ }
+    if (hasDraft) {
+      loadState();
+    } else {
+      activeRecordId = null;
+      loadData(freshState($('#layoutPreset').value || 'single'));
+    }
+    lastRecordsHtml = null;
+    selectedRecordIds = Object.create(null);
+    renderRecords();
+    refreshMeasurementSelectors();
+    calc();
+  }
+
+  function mergeRecordLists(localRecords, remoteRecords) {
+    var merged = Object.create(null);
+    (localRecords || []).forEach(function (record) {
+      if (record && record.id) merged[record.id] = record;
+    });
+    (remoteRecords || []).forEach(function (record) {
+      if (!record || !record.id) return;
+      var current = merged[record.id];
+      if (!current || Number(record.updated || 0) >= Number(current.updated || 0)) {
+        merged[record.id] = record;
+      }
+    });
+    return Object.keys(merged).map(function (id) { return merged[id]; });
+  }
+
+  function enterCloudUser(userId, remoteRecords) {
+    var legacyRecords = [];
+    var migrated = false;
+    try { migrated = localStorage.getItem(CLOUD_MIGRATION_KEY) === '1'; } catch (e) { /* 忽略 */ }
+    if (!cloudUserId && !migrated) legacyRecords = readRecords();
+
+    cloudUserId = String(userId);
+    var merged = mergeRecordLists(readRecords(), remoteRecords || []);
+    if (legacyRecords.length) merged = mergeRecordLists(legacyRecords, merged);
+    writeRecords(merged);
+    try { localStorage.setItem(CLOUD_MIGRATION_KEY, '1'); } catch (e) { /* 忽略 */ }
+
+    resetWorkspace();
+    return merged;
+  }
+
+  function leaveCloudUser() {
+    cloudUserId = null;
+    resetWorkspace();
+  }
+
+  function summarizeRecord(record) {
+    var state = (record && record.state) || {};
+    var result = analyze(state);
+    var fields = state.fields || {};
+    return {
+      floorNet: result.floorNet,
+      wallNet: result.tileNet,
+      areaTotal: result.areaTotal,
+      netPieces: result.netPieces,
+      buyPieces: result.buyPieces,
+      projectName: fields.layoutName || (record && record.name) || '未命名单元',
+      floor: fields.floor || '',
+      tileType: fields.tileType || '瓷片',
+      tileWidth: fields.tileWidth || '',
+      tileHeight: fields.tileHeight || '',
+      bases: result.bases,
+      items: result.items
+    };
+  }
+
+  function exportRecordList(records, filenamePrefix) {
+    var valid = (records || []).filter(function (record) { return record && record.state; });
+    if (!valid.length) return false;
+    var stamp = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    downloadBlob(makeXlsxBlob(valid), safeFileName(filenamePrefix || '扎心测量-瓷片面积') + '-' + stamp + '.xlsx');
+    return true;
   }
 
   /* ---------------- 导出（XLSX） ---------------- */
@@ -1687,6 +1789,21 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
   }
 
   /* ---------------- 启动 ---------------- */
+  window.QuantityApp = {
+    enterCloudUser: enterCloudUser,
+    leaveCloudUser: leaveCloudUser,
+    summarizeRecord: summarizeRecord,
+    exportRecordList: exportRecordList,
+    refreshRecords: function () {
+      lastRecordsHtml = null;
+      renderRecords();
+      updateSelectionUi();
+    },
+    getRecords: readRecords,
+    getCloudUserId: function () { return cloudUserId; },
+    toast: toast
+  };
+
   function init() {
     addTableWrap = $('#additionRows').closest('.tablewrap');
     dedTableWrap = $('#deductionRows').closest('.tablewrap');
@@ -1710,4 +1827,8 @@ body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,2
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
-</script></body></html>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="cloud-config.js"></script>
+<script src="cloud.js"></script>
+</body></html>
