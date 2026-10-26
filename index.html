@@ -1,0 +1,1713 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>扎心测量-瓷片面积</title>
+<style>
+:root{--ink:#17231f;--muted:#64746d;--line:#dce5df;--paper:#f4f7f4;--white:#fff;--green:#176b50;--green2:#e6f3ec;--orange:#b45b21;--red:#ad4848;--shadow:0 8px 28px #183d2910}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.top{background:#12392d;color:#fff;padding:24px max(24px,calc((100vw - 1180px)/2));display:flex;justify-content:space-between;align-items:center;gap:18px}.top h1{margin:0;font-size:23px}.top p{margin:4px 0 0;color:#c8ddd1;font-size:13px}.top-actions{display:flex;gap:9px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:white;color:var(--ink);padding:8px 13px;border-radius:9px;font-weight:650}.btn.primary{background:var(--green);border-color:var(--green);color:white}.top .btn{background:#ffffff14;border-color:#ffffff42;color:white}.wrap{max-width:1180px;margin:22px auto;padding:0 20px}.notice{background:#fff8e9;border:1px solid #f1dfbb;color:#725326;padding:12px 15px;border-radius:10px;margin-bottom:16px;font-size:13px}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.stat{background:white;border:1px solid var(--line);border-radius:13px;padding:15px 17px;box-shadow:var(--shadow)}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{display:block;font-size:24px;margin-top:3px}.stat small{color:var(--muted);font-size:12px}.panel{background:white;border:1px solid var(--line);border-radius:14px;margin:14px 0;box-shadow:var(--shadow);overflow:hidden}.panel-head{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}.panel-head h2{font-size:17px;margin:0}.panel-head p{font-size:12px;color:var(--muted);margin:3px 0 0}.panel-body{padding:16px 18px}.field-grid{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:12px}.field label{display:block;font-size:12px;font-weight:650;color:var(--muted);margin-bottom:5px}.field input,.field select,.row input,.row select{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 9px;background:#fff;color:var(--ink);min-width:0}.unit{position:relative}.unit input{padding-right:38px}.unit i{position:absolute;right:10px;top:8px;color:#8a9790;font-size:12px;font-style:normal}.subhead{display:flex;justify-content:space-between;align-items:center;margin:17px 0 8px}.subhead strong{font-size:14px}.subhead span{font-size:12px;color:var(--muted)}.tablewrap{overflow-x:auto}.table{width:100%;border-collapse:collapse;min-width:810px}.table th{text-align:left;color:var(--muted);font-size:11px;font-weight:700;padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}.table td{padding:7px 5px;border-bottom:1px solid #edf1ee}.row input,.row select{padding:7px 8px}.w-wall{width:135px}.w-num{width:100px}.w-type{width:126px}.w-name{min-width:130px}.delete{border:0;background:#fff0f0;color:var(--red);border-radius:7px;padding:7px 9px}.add{background:var(--green2);color:var(--green);border:1px solid #cce5d7;border-radius:8px;padding:7px 11px;font-weight:650}.hint{font-size:12px;color:var(--muted);margin:10px 0 0}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.chip{background:#f1f5f2;border-radius:8px;padding:7px 10px;font-size:12px;color:#40564b}.results{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}.resultbox{background:#f8faf8;border:1px solid var(--line);border-radius:10px;padding:14px}.resultbox h3{margin:0 0 10px;font-size:14px}.resultline{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid #e8ede9;font-size:13px}.resultline:last-child{border:0}.resultline strong{font-variant-numeric:tabular-nums}.negative{color:var(--red)}.total{font-size:16px;font-weight:750;color:var(--green);padding-top:10px!important}.foot{color:var(--muted);font-size:12px;text-align:center;padding:14px 0 30px}.empty{padding:14px;color:var(--muted);font-size:13px;text-align:center}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#173d2e;color:white;padding:10px 16px;border-radius:9px;opacity:0;transition:opacity .2s;pointer-events:none}.toast.show{opacity:1}
+@media(max-width:760px){.top{align-items:flex-start;flex-direction:column;padding:19px 17px}.wrap{padding:0 12px;margin:13px auto}.summary{grid-template-columns:repeat(2,1fr);gap:8px}.stat{padding:12px}.stat strong{font-size:20px}.field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.panel-head,.panel-body{padding:13px}.results{grid-template-columns:1fr}.top h1{font-size:20px}}
+@media(max-width:600px){
+ body{font-size:14px}.top{padding:16px 14px;gap:12px}.top-actions{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.top .btn{padding:9px 5px;font-size:12px}.wrap{padding:0 10px;margin:10px auto}.notice{font-size:12px;padding:10px 11px}.summary{gap:7px;margin-bottom:12px}.stat{border-radius:10px;padding:10px}.stat span{font-size:11px}.stat strong{font-size:18px}.stat small{font-size:10px;line-height:1.3;display:block}.panel{margin:10px 0;border-radius:11px}.panel-head{padding:12px;align-items:flex-start}.panel-head h2{font-size:15px}.panel-head p{font-size:11px;line-height:1.35}.panel-body{padding:11px}.field-grid{gap:9px}.field label{font-size:11px;line-height:1.3;min-height:28px}.field input{font-size:16px;min-height:42px;padding:9px}.unit i{top:11px}.add{font-size:12px;padding:8px 9px;white-space:nowrap}.tablewrap{overflow:visible}.table{min-width:0;width:100%;display:block}.table thead{display:none}.table tbody{display:grid;gap:10px}.table tr{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:10px;background:#f8faf8;border:1px solid var(--line);border-radius:10px}.table td{display:flex;flex-direction:column;gap:3px;padding:0;border:0;min-width:0}.table td:before{font-size:10px;font-weight:700;color:var(--muted);line-height:1.2}.wall td:nth-child(1){grid-column:1/-1}.wall td:nth-child(1):before{content:'墙面 / 编号'}.wall td:nth-child(2):before{content:'墙长 (cm)'}.wall td:nth-child(3):before{content:'层高 (cm)'}.wall td:nth-child(4):before{content:'新建砖墙高 (cm)'}.wall td:nth-child(5):before{content:'墙砖铺贴高 (cm)'}.wall td:nth-child(6){grid-column:1/-1}.wall td:nth-child(6):before{content:'斜边 / 辅助长度 (cm)'}.ded td:nth-child(1):before{content:'所属墙面'}.ded td:nth-child(2):before{content:'项目类型'}.ded td:nth-child(3){grid-column:1/-1}.ded td:nth-child(3):before{content:'名称 / 位置'}.ded td:nth-child(4):before{content:'宽 / 长 (cm)'}.ded td:nth-child(5):before{content:'高度 (cm)'}.ded td:nth-child(6):before{content:'自动面积 (m²)'}.ded td:nth-child(7){grid-column:1/-1}.ded td:nth-child(7):before{content:'计入 / 扣除范围'}.table .row input,.table .row select{width:100%;min-width:0;font-size:16px;min-height:42px;padding:8px}.table .w-wall,.table .w-num,.table .w-type,.table .w-name{width:100%;min-width:0}.table td:last-child{grid-column:1/-1;align-items:flex-end}.delete{min-height:38px;padding:7px 14px}.hint{font-size:11px;line-height:1.45}.results{grid-template-columns:1fr;gap:9px}.resultbox{padding:11px}.resultline{font-size:12px;gap:8px}.resultline strong{white-space:nowrap}.chip{font-size:11px;padding:6px 8px}.foot{font-size:11px;padding-bottom:22px}
+}.space-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}.space-card{background:#f8faf8;border:1px solid var(--line);border-radius:11px;padding:12px}.space-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;font-weight:700}.space-title input{font-weight:700;max-width:210px;border:1px solid var(--line);border-radius:7px;padding:7px}.space-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.space-grid label{font-size:11px;color:var(--muted);display:block;margin-bottom:3px}.space-grid input{width:100%;border:1px solid var(--line);border-radius:7px;padding:8px;min-width:0}.hidden-global{display:none!important}
+@media(max-width:600px){.space-list{grid-template-columns:1fr}.space-card{padding:10px}.space-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.space-grid input{font-size:16px;min-height:42px}.space-title input{font-size:16px}}.plan-toolbar{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}.plan-prompt{font-size:12px;font-weight:700;color:var(--muted);padding:9px 0}.palette{display:flex;flex-wrap:wrap;gap:7px}.component.active{background:#176b50;color:white;border-color:#176b50}.plan{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:14px 0 8px;padding:14px;border:1px solid var(--line);border-radius:11px;background:#f5f8f6;min-height:100px}.plan-room{position:relative;min-width:120px;min-height:86px;flex:1 1 140px;border:2px solid #607d70;border-radius:8px;background:white;color:var(--ink);padding:12px;text-align:left}.plan-room.selected{border-color:var(--green);background:var(--green2);box-shadow:0 0 0 2px #176b5022}.plan-room b{display:block;font-size:14px}.plan-room small{display:block;color:var(--muted);font-size:11px;margin-top:5px}.plan-room em{position:absolute;right:8px;top:7px;font-style:normal;color:var(--green);font-size:16px}.plan-empty{color:var(--muted);font-size:13px}
+@media(max-width:600px){.plan-toolbar{display:block}.plan-prompt{display:block;padding:0 0 7px}.palette .add{padding:8px 10px}.plan{padding:9px;gap:7px}.plan-room{min-width:calc(50% - 5px);flex:1 1 calc(50% - 5px);min-height:77px}}.records-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.record-card{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;background:#f8faf8;border:1px solid var(--line);border-radius:10px}.record-card.current{border-color:#75ae91;background:#f0f8f3}.record-info{min-width:0}.record-info b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.record-info small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.record-actions{display:flex;gap:6px;flex-shrink:0}.record-open{border:0;border-radius:7px;background:var(--green2);color:var(--green);font-weight:700;padding:8px 10px}.record-empty{color:var(--muted);font-size:13px}.record-count{font-size:12px;color:var(--muted)}
+@media(max-width:600px){.records-list{grid-template-columns:1fr}.record-card{align-items:flex-start}.record-actions .btn{font-size:12px;padding:7px 9px}}.summary{grid-template-columns:repeat(3,1fr)}.wall td:nth-child(3),.wall td:nth-child(4){display:none!important}
+@media(max-width:600px){.summary{grid-template-columns:repeat(2,1fr)}.wall td:nth-child(3),.wall td:nth-child(4){display:none!important}}.estimate-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.estimate-stat{padding:13px;background:#f5f8f6;border:1px solid var(--line);border-radius:10px}.estimate-stat span{display:block;color:var(--muted);font-size:12px}.estimate-stat strong{display:block;font-size:20px;margin-top:4px}.estimate-stat.recommend{background:#eaf5ef;border-color:#c9e4d4;color:var(--green)}.waste-field{max-width:190px;margin-top:13px}
+@media(max-width:600px){.estimate-grid{grid-template-columns:repeat(2,1fr)}.estimate-stat{padding:10px}.estimate-stat strong{font-size:18px}}.plan-builder,.legacy-floor,.legacy-components{display:none!important}.base-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.base-grid>div{background:#f3f7f4;border:1px solid var(--line);border-radius:10px;padding:13px}.base-grid span{display:block;font-size:12px;color:var(--muted)}.base-grid strong{font-size:21px;color:var(--green)}.calc-table{min-width:720px}.calc-item input,.calc-item select{width:100%;min-height:40px;border:1px solid var(--line);border-radius:8px;padding:8px}.calc-item .calc-area{background:#f3f7f4;font-weight:700}.calc-delete{border:0;border-radius:7px;background:#fff0f0;color:var(--red);padding:8px 10px}
+@media(max-width:600px){.calc-table{min-width:0}.calc-table thead{display:none}.calc-table tbody{display:grid;gap:9px}.calc-table tr{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#f8faf8}.calc-table td{display:flex;flex-direction:column;gap:4px;padding:0;border:0;min-width:0}.calc-table td:before{font-size:10px;color:var(--muted);font-weight:700}.calc-table td:nth-child(1):before{content:'项目名称'}.calc-table td:nth-child(2):before{content:'计入 / 扣减范围'}.calc-table td:nth-child(3):before{content:'尺寸一 (cm)'}.calc-table td:nth-child(4):before{content:'尺寸二 (cm)'}.calc-table td:nth-child(5):before{content:'自动面积 (m²)'}.calc-table td:nth-child(6){grid-column:1/-1;align-items:flex-end}.base-grid strong{font-size:18px}}.surface-result,.wall-net{display:block;color:var(--green);font-size:10px;line-height:1.35;margin-top:4px}.base-detail small{color:var(--muted)}.legacy-walls,.plan-builder,.legacy-floor,.legacy-components,#spaces,.measure-mutation-add,.measure-mutation-deduct{display:none!important}.records-panel #recordsBody{display:none}.records-panel.open #recordsBody{display:block}.selection-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.measure-editor{margin-top:12px;padding:13px;background:#f7faf8;border:1px solid var(--line);border-radius:11px}.measure-editor h3{font-size:14px;margin:0 0 9px}.measure-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.measure-fields label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}.measure-fields input{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px;font-size:16px}.measure-actions{display:flex;gap:8px;margin-top:12px}.measure-mutations{margin-top:12px}.measure-mutations h4{margin:8px 0;font-size:12px}.measure-mutations .tablewrap{margin-bottom:8px}.measure-current{margin-top:8px;font-weight:700;color:var(--green)}.tile-spec-details{margin-top:12px;border-top:1px solid var(--line);padding-top:9px}.tile-spec-details summary{cursor:pointer;font-size:12px;color:var(--green);font-weight:700}.tile-spec-details .field-grid{margin-top:10px}.calc-table thead th:nth-child(2),.calc-table td:nth-child(2){display:none}.calc-item[hidden]{display:none!important}#calcItemParking{display:none!important}
+@media(max-width:760px){.selection-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.measure-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.records-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:11px;margin-bottom:11px;border-bottom:1px solid var(--line)}.records-check{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);font-weight:650;cursor:pointer}.records-check input{width:16px;height:16px;accent-color:#176b50;cursor:pointer}.records-selected{font-size:12px;color:var(--muted)}.records-tools{display:flex;gap:7px;margin-left:auto;flex-wrap:wrap}.records-tools .btn{padding:7px 11px;font-size:13px}.btn.danger{background:#fff0f0;border-color:#f0cccc;color:var(--red)}.btn[disabled]{opacity:.45;cursor:not-allowed}.record-pick{display:flex;align-items:center;flex-shrink:0}.record-pick input{width:16px;height:16px;accent-color:#176b50;cursor:pointer}.record-card .record-info{flex:1 1 auto}.record-del{border:0;border-radius:7px;background:#fff0f0;color:var(--red);font-weight:700;padding:8px 10px;flex-shrink:0}
+@media(max-width:600px){.records-tools{width:100%;margin-left:0}.records-tools .btn{flex:1 1 auto;font-size:12px;padding:8px 6px}}
+@media print{.top-actions,.toast,.records-panel{display:none!important}body{background:#fff}.wrap{max-width:none;margin:0}.panel{box-shadow:none;break-inside:avoid}}
+/* ---------- 柔雾玫瑰主题（覆盖上面的配色与圆角） ---------- */
+:root{--ink:#3f2d3a;--muted:#8b7484;--line:#f2e3ea;--paper:#fdf7fa;--white:#fff;--green:#c2688f;--green2:#fceef3;--orange:#d9895f;--red:#c0506f;--shadow:0 10px 30px #b86a8e12}
+body{background:radial-gradient(1100px 520px at 8% -8%,#fdeaf3 0%,rgba(253,234,243,0) 62%),radial-gradient(900px 480px at 105% 0%,#efe7fb 0%,rgba(239,231,251,0) 58%),var(--paper);font-family:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+.top{position:relative;overflow:hidden;background:linear-gradient(118deg,#e8aac6 0%,#cf92b6 42%,#a992cd 100%);box-shadow:0 6px 24px #b96e901f}
+.top::after{content:"";position:absolute;right:-60px;top:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,#ffffff40,transparent 70%);pointer-events:none}
+.top h1{letter-spacing:.6px;font-weight:750}.top p{color:#fdeaf4}.top .btn{background:#ffffff2b;border-color:#ffffff5e}
+.btn{border-radius:999px;padding:8px 15px}.btn.primary{border-radius:999px}
+.panel,.stat{border-radius:18px;border-color:#f4e4ec}.panel-head{border-bottom-color:#f6e8ef}.stat strong{color:#a34f74}
+.notice{background:#fdf0f7;border-color:#f4d6e6;color:#8a4f6b;border-radius:14px}
+.btn.danger{background:#fdeef4;border-color:#f3cadb;color:#b8506f}
+.table th{border-bottom-color:#f3e2ea}.table td{border-bottom-color:#f9ecf2}
+.chip{background:#fbeef5;color:#7d5a6b;border-radius:999px}
+.resultbox{background:#fdf7fb;border-color:#f5e6ee}.resultline{border-bottom-color:#f8eaf1}.total{color:#b2507a}
+.toast{background:#6e4460;border-radius:12px}
+.add{background:#fceef3;color:#b2507a;border-color:#f3cede;border-radius:10px}
+.delete,.calc-delete,.record-del{background:#fdeef4;color:#b8506f}
+.record-open{background:#fceef3;color:#b2507a}
+.plan{background:#fdf6fb;border-color:#f4e4ee}.plan-room{border-color:#e0b0c7;border-radius:12px}.plan-room.selected{border-color:#c2688f;box-shadow:0 0 0 3px #c2688f24}
+.component.active{background:#c2688f;border-color:#c2688f}
+.space-card,.record-card{background:#fdf7fb;border-color:#f4e4ee;border-radius:14px}
+.record-card.current{border-color:#e3a7c3;background:#fdf0f7}
+.estimate-stat{background:#fdf6fb;border-color:#f4e4ee}.estimate-stat.recommend{background:#fcecf4;border-color:#f2c8db;color:#b2507a}
+.base-grid>div{background:#fdf5fa;border-color:#f4e4ee}.base-grid strong{color:#b2507a}
+.calc-item .calc-area{background:#faf0f6}
+.measure-editor{background:#fdf6fb;border-color:#f4e4ee;border-radius:14px}
+.surface-result,.wall-net,.measure-current,.tile-spec-details summary{color:#b2507a}
+.records-toolbar{border-bottom-color:#f5e6ee}
+.records-check input,.record-pick input,.calc-table input[type="checkbox"]{accent-color:#c2688f}
+.calc-name-cell{display:grid;gap:6px}
+.calc-item .calc-preset{min-height:34px;padding:5px 8px;font-size:12px;color:#8b7484;background:#fdf6fb;border-color:#f3e2ea}
+.measure-tip{margin:10px 0 0;font-size:11.5px;line-height:1.6;color:#a58c9b}
+@media(max-width:600px){.table tr,.calc-table tr{background:#fdf7fb}.calc-item .calc-preset{min-height:38px;font-size:12px}}
+@media print{body{background:#fff!important}.top{background:#fff!important;color:#3f2d3a!important}.top p{color:#8b7484!important}.top::after{display:none}}
+</style></head>
+<body>
+<header class="top"><div><h1>扎心测量-瓷片面积</h1><p>现场实测 · 分项计量 · 扣减明细</p></div><div class="top-actions"><button class="btn" id="newUnitBtn">＋ 新建单元</button><button class="btn" id="saveBtn">保存单元</button><button class="btn" id="exportBtn">导出 XLSX</button><button class="btn" id="printBtn">打印 / 存 PDF</button></div></header>
+<main class="wrap">
+<div class="notice">填写墙段长度、瓷片铺贴高度、瓷片规格和洞口尺寸。墙面工程量只计算瓷片铺贴面积；瓷片数量按地面与墙面净面积估算。</div>
+<section class="panel records-panel"><div class="panel-head"><div><h2>已保存的测量单元</h2><p>每套单元独立保存；打开后继续填写，修改会自动保存到该记录。</p></div><div class="record-actions"><span class="record-count" id="recordCount">0 条记录</span><button class="btn" id="toggleRecords" type="button">展开记录</button></div></div><div class="panel-body" id="recordsBody"><div class="records-toolbar"><label class="records-check"><input type="checkbox" id="selectAllRecords"> 全选</label><span class="records-selected" id="selectedCount">已选 0 / 0 条</span><div class="records-tools"><button class="btn" id="exportBatch" type="button" disabled>合并导出</button><button class="btn" id="exportEach" type="button" disabled>逐个导出</button><button class="btn danger" id="deleteSelected" type="button" disabled>删除选中</button></div></div><div id="recordsList" class="records-list"></div></div></section><section class="summary"><div class="stat"><span>地砖净面积</span><strong id="sumFloor">0.00 m²</strong><small>房间地面减墙体/柱体占地与不铺区域</small></div><div class="stat"><span>墙砖净面积</span><strong id="sumTile">0.00 m²</strong><small>铺贴范围减既有瓷片及洞口</small></div><div class="stat"><span>墙砖铺贴基准面积</span><strong id="sumGross">0.00 m²</strong><small>墙段长度 × 墙砖铺贴高度</small></div></section>
+<section class="panel selection-panel"><div class="panel-head"><div><h2>选择测量对象</h2><p>先选户型，再选项目/单元，最后选择要测量的地面或墙面。</p></div></div><div class="panel-body"><div class="field-grid selection-grid"><div class="field"><label>户型</label><select id="layoutPreset"><option value="single">单间（含卫生间、阳台）</option><option value="onebed">一房一厅（含卫生间、阳台）</option><option value="twobed">两房一厅（含卫生间、阳台）</option></select></div><div class="field"><label>项目 / 单元名称</label><input id="layoutName" placeholder="例如：A栋 302"></div><div class="field"><label>楼层</label><input id="floor" placeholder="例如：3F / 3楼"></div><div class="field"><label>选择单元空间</label><select id="unitSelector"></select></div><div class="field"><label>选择要测量的内容</label><select id="measureSelector"></select></div></div><div id="measureEditor" class="measure-editor"></div><details class="tile-spec-details" open><summary>瓷片类型与规格</summary><div class="field-grid"><div class="field"><label>瓷片类型</label><select id="tileType"><option>瓷片</option><option>釉面墙砖</option><option>通体砖</option><option>仿古砖</option><option>马赛克</option><option>岩板</option><option>其他</option></select></div><div class="field"><label>瓷片规格 (cm)</label><div style="display:flex;gap:6px"><input id="tileWidth" type="number" min="0" step="1" placeholder="宽"><input id="tileHeight" type="number" min="0" step="1" placeholder="高"></div></div><div class="field"><label>损耗率 (%)</label><input id="tileWaste" type="number" min="0" step="0.5" value="5"></div></div></details><input id="spaceFloorTotal" type="hidden"><select id="newSpaceType" hidden></select><div id="spaces" class="space-list"></div></div></section><section class="panel plan-builder"><div class="panel-head"><div><h2>第二步：在户型图上放置建筑属性</h2><p>先点下方构件，再点户型图中的房间，即可插入一条对应记录。</p></div></div><div class="panel-body"><div class="plan-toolbar"><span class="plan-prompt">选择要插入的项目</span><div class="palette"><button class="add component" data-kind="door" data-name="门洞" data-target="both">＋ 门洞</button><button class="add component" data-kind="window" data-name="窗洞" data-target="both">＋ 窗洞</button><button class="add component" data-kind="existing" data-name="既有墙砖" data-target="tile">＋ 既有墙砖</button><button class="add component" data-kind="tileadd" data-name="梁 / 柱墙面" data-target="tile">＋ 梁 / 柱墙面</button><button class="add component" data-kind="floorwall" data-name="墙体占地" data-target="floor">＋ 墙体占地</button><button class="add component" data-kind="floorcolumn" data-name="柱体占地" data-target="floor">＋ 柱体占地</button></div></div><div class="plan" id="plan"></div><p class="hint">添加后在下方明细中填写宽、高或直接填面积；面积会自动扣减或计入。户型示意图用于定位房间，非比例施工图。</p></div></section><section class="legacy-floor panel"><div class="panel-head"><div><h2>房间与地面</h2><p>规则矩形房间可用长宽计算；不规则地面可直接填写实测总面积。</p></div></div><div class="panel-body"><div class="field-grid"><div class="field"><label>项目 / 房间名称</label><input id="roomName" value="房间 1" placeholder="例如：卫生间"></div><div class="field"><label>房间长度</label><div class="unit"><input id="roomL" type="number" min="0" step="0.01" placeholder="可留空"><i>厘米</i></div></div><div class="field"><label>房间宽度</label><div class="unit"><input id="roomW" type="number" min="0" step="0.01" placeholder="可留空"><i>厘米</i></div></div><div class="field"><label>地面实测面积（覆盖长×宽）</label><div class="unit"><input id="floorArea" type="number" min="0" step="0.01" placeholder="选填"><i>m²</i></div></div></div><div class="field-grid" style="margin-top:12px"><div class="field"><label>地面不铺砖区域面积</label><div class="unit"><input id="floorNoTile" type="number" min="0" step="0.01" value="0"><i>m²</i></div></div><div class="field"><label>地面扣减：墙体占地</label><div class="unit"><input id="wallFoot" type="number" min="0" step="0.01" value="0"><i>m²</i></div></div><div class="field"><label>地面扣减：柱体占地</label><div class="unit"><input id="columnFoot" type="number" min="0" step="0.01" value="0"><i>m²</i></div></div><div class="field"><label>地面砖已铺部分面积（扣减）</label><div class="unit"><input id="floorExisting" type="number" min="0" step="0.01" value="0"><i>m²</i></div></div></div><p class="hint">地面净面积 = 实测地面面积 − 墙体/柱体占地 − 不铺区域 − 已铺部分。扣减项只按实际不施工范围填写，避免重复扣减。</p></div></section>
+<section class="panel"><div class="panel-head"><div><h2>第二步：大测量基数</h2><p>地面按各空间面积合计；墙面按每段墙长 × 瓷片铺贴高度合计。</p></div></div><div class="panel-body"><div class="base-grid"><div><span>地砖大测量</span><strong id="baseFloor">0.00 m²</strong></div><div><span>墙砖大测量</span><strong id="baseWall">0.00 m²</strong></div></div></div></section><section class="panel legacy-walls"><div class="panel-head"><div><h2>墙段铺贴测量</h2><p>按户型生成的墙面分别填写墙长和瓷片铺贴高度。</p></div><button class="add" id="addWall">＋ 添加墙段</button></div><div class="panel-body"><div class="tablewrap"><table class="table"><thead><tr><th>墙面/编号</th><th>长度 (cm)</th><th class="hide-wall-calc">层高 (cm)</th><th class="hide-wall-calc">新建砖墙高 (cm)</th><th>墙砖铺贴高 (cm)</th><th>斜边/辅助长度 (cm)</th><th></th></tr></thead><tbody id="wallRows"></tbody></table></div><p class="hint">墙砖面积按墙段长度 × 墙砖铺贴高度计算；异形边可用“辅助长度”记录现场辅助尺寸。转角闭合可在下方记录核对值。</p><div class="field-grid" style="margin-top:12px"><div class="field"><label>平面周长实测 / 闭合核对值</label><div class="unit"><input id="perimeterCheck" type="number" min="0" step="0.01" placeholder="选填"><i>厘米</i></div></div><div class="field"><label>草图闭合差</label><div class="unit"><input id="closureDiff" type="number" step="0.01" placeholder="选填"><i>厘米</i></div></div></div></div></section>
+<section class="panel measure-mutation-add"><div class="panel-head"><div><h2>第三步：增加部分</h2><p>填写自定义名称，选择计入地砖或墙砖，再填长和宽自动计算面积。</p></div><button class="add" id="addAddition">＋ 添加增加项</button></div><div class="panel-body"><div class="tablewrap"><table class="table calc-table"><thead><tr><th>名称</th><th>计入范围</th><th>尺寸一 (cm)</th><th>尺寸二 (cm)</th><th>自动面积 (m²)</th><th></th></tr></thead><tbody id="additionRows"></tbody></table></div></div></section>
+<section class="panel measure-mutation-deduct"><div class="panel-head"><div><h2>第四步：扣减部分</h2><p>填写自定义名称，选择扣减地砖或墙砖，再填长和宽自动计算面积。</p></div><button class="add" id="addDeduction">＋ 添加扣减项</button></div><div class="panel-body"><div class="tablewrap"><table class="table calc-table"><thead><tr><th>名称</th><th>扣减范围</th><th>尺寸一 (cm)</th><th>尺寸二 (cm)</th><th>自动面积 (m²)</th><th></th></tr></thead><tbody id="deductionRows"></tbody></table></div><p class="hint">门洞、窗洞、已有瓷片、柱体占地等，都可用自己的名称添加；范围选择墙砖或地砖。</p></div></section><section class="panel legacy-components"><div class="panel-head"><div><h2>第三步：添加门窗、梁柱与既有饰面</h2><p>按所属空间和墙面定位，计算瓷片铺贴范围及扣减。</p></div><button class="add" id="addDed">＋ 添加项目</button></div><div class="panel-body"><div class="tablewrap"><table class="table"><thead><tr><th>所属墙面</th><th>扣减 / 计入内容</th><th>名称/位置</th><th>宽/长 (cm)</th><th>高 (cm)</th><th>自动面积 (m²)</th><th>计入/扣除项目</th><th></th></tr></thead><tbody id="dedRows"></tbody></table></div><p class="hint">先从下拉框选扣减或计入内容，再填写长/宽和高/厚度；面积栏自动按两项尺寸相乘，无需手填。门窗洞口默认按选定范围扣减，既有墙砖自动从墙砖扣除。</p></div></section>
+<section class="panel"><div class="panel-head"><div><h2>工程量计算明细</h2><p>地砖、墙砖分开汇总：净面积 = 大测量 + 增加部分 − 扣减部分。明细实时更新，可打印或导出。</p></div></div><div class="panel-body"><div class="results"><div class="resultbox"><h3>工程量汇总</h3><div id="quantityDetails"></div></div><div class="resultbox"><h3>扣减 / 增项明细</h3><div id="dedDetails"></div></div></div><div class="chips" id="checks"></div></div></section>
+<section class="panel estimate-panel"><div class="panel-head"><div><h2>瓷片数量估算</h2><p>按地砖净面积与墙砖净面积合计，再根据单片规格估算片数。</p></div></div><div class="panel-body"><div class="estimate-grid"><div class="estimate-stat"><span>瓷片铺贴总面积</span><strong id="estimateArea">0.00 m²</strong></div><div class="estimate-stat"><span>单片覆盖面积</span><strong id="tileUnitArea">— m²</strong></div><div class="estimate-stat"><span>理论用量</span><strong id="tileNetPieces">— 片</strong></div><div class="estimate-stat recommend"><span>建议采购片数</span><strong id="tileBuyPieces">— 片</strong></div></div><div class="field waste-field"><label>损耗率（可调整）</label><div class="unit"><input id="tileWasteEstimate" type="number" min="0" step="0.5" value="5"><i>%</i></div></div><p class="hint" id="tileQtyHint">填写瓷片宽、高规格后自动估算。</p></div></section><div class="foot">数据自动保存在此浏览器。现场计量规则因合同约定不同，请核对后确认最终工程量。</div></main><div id="toast" class="toast"></div>
+<script>
+/* 扎心测量-瓷片面积 —— 脚本
+   已修复：
+   1. collectState()（原 state()）只读取真实存在的字段，修掉 #brickSpec / #ruleNote 不存在导致的 TypeError（原来保存单元、自动保存、记录列表全挂）。
+   2. 损耗率输入框改为两个独立 id 并双向同步（原来重复 id=tileWaste，估算面板那个不起作用）。
+   3. 测算面板的“大测量面积”改为随输入实时刷新（原来恒为 0.00）。
+   4. 切换户型时确认并清空残留的增加/扣减项（原来会留下孤立记录，显示在明细里却不参与合计）。
+   5. 计算合并到一次调度里执行，避免每次按键重复计算两遍、重建全部下拉、重写记录列表。
+   6. 补上原代码里缺失的 addDed（点击户型图构件时会抛 ReferenceError）。
+   7. 导出补上地面空间数据、关联项用名称而非内部 key，并延后释放 Blob URL。
+
+   本版新增：
+   8. 已保存单元支持勾选 / 全选，可合并导出成一张汇总表，也可每个单元单独导出。
+   9. 支持逐条删除和批量删除已存档单元（均有二次确认，删除后不可恢复）。
+   10. 增加 / 扣减项可按“地面 / 墙面”选择常用名称：地面增加有跳台面积、凸出面积，扣减有缩进面积；墙面增加有跳出面积，扣减有门洞面积、窗口面积。
+   11. 整体配色改为柔雾玫瑰主题。
+   12. 导出改为 XLSX 统计表：顶部「汇总」直接显示瓷片规格、损耗率、地砖/墙砖净面积、增加/扣减合计、总面积、理论用量与建议采购；下方按「地面 / 墙面 / 增加 / 扣减」四类分别给出合计行，点行号旁的“+”可展开该类的逐项明细（含尺寸与净面积）。
+   13. 新增「楼层」字段（在项目 / 单元名称旁），随单元一起保存；导出汇总区显示楼层（多个单元合并时列出全部楼层，明细项按「单元 · 楼层」标注）。
+   14. 所有长度/尺寸/瓷片规格输入单位统一为厘米（cm），面积仍按平方米（m²）统计（cm × cm ÷ 10000 折算）。
+   15. 导出汇总区每行带上类别名称（地面 / 墙面 / 增加 / 扣减）与房间 / 项目名称（含各自净面积），一眼看出每类由哪些房间组成。
+   16. 导出新增「按房间汇总」区：按房间列出地面（地砖）/ 墙面（墙砖）瓷片面积（大测量 + 净面积），例如「阳台」的地板瓷片与墙面瓷片各是多少，一目了然。
+*/
+(function () {
+  'use strict';
+
+  var $ = function (sel, root) { return (root || document).querySelector(sel); };
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+  var num = function (v) { var x = Number(v); return Number.isFinite(x) && x > 0 ? x : 0; };
+  var round2 = function (v) { var x = Number(v); if (!Number.isFinite(x)) x = 0; return Math.round((x + Number.EPSILON) * 100) / 100; };
+  var fmt = function (v) { return round2(v).toFixed(2); };
+  /* 输入统一为厘米（cm），面积统一折算成平方米（m²）：cm × cm ÷ 10000 */
+  var areaM2 = function (a, b) { return num(a) * num(b) / 10000; };
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+
+  var DRAFT_KEY = 'cementCalcDraftV2';
+  var LEGACY_DRAFT_KEY = 'cementCalcV1';
+  var RECORDS_KEY = 'cementCalcRecordsV1';
+  var ACTIVE_KEY = 'cementCalcActiveId';
+
+  var LAYOUTS = {
+    single: ['房间', '卫生间', '阳台'],
+    onebed: ['客厅', '卧室', '卫生间', '阳台'],
+    twobed: ['客厅', '卧室 1', '卧室 2', '卫生间', '阳台']
+  };
+
+  /* 增加 / 扣减项目的常用名称：地面与墙面各一套 */
+  var PRESETS = {
+    add: {
+      floor: ['跳台面积', '凸出面积'],
+      wall: ['跳出面积']
+    },
+    deduct: {
+      floor: ['缩进面积'],
+      wall: ['门洞面积', '窗口面积']
+    }
+  };
+
+  /* 只保存页面上真实存在的字段 */
+  var FIELD_IDS = ['roomName', 'roomL', 'roomW', 'floorArea', 'floorNoTile', 'wallFoot', 'columnFoot',
+    'floorExisting', 'perimeterCheck', 'closureDiff', 'layoutName', 'layoutPreset', 'floor',
+    'tileType', 'tileWidth', 'tileHeight', 'tileWaste'];
+
+  /* ---------------- 运行状态 ---------------- */
+  var wallCount = 0;
+  var activeRecordId = null;
+  var isRestoring = false;
+  var lastScopeSignature = null;
+  var lastRecordsHtml = null;
+  var savedLayout = 'single';
+  var activeComponent = null;
+  var selectedPlanRoom = '';
+  var calcQueued = false;
+  var saveTimer = 0;
+  var addTableWrap = null;
+  var dedTableWrap = null;
+  var selectedRecordIds = Object.create(null);
+
+  /* ---------------- 提示 ---------------- */
+  function toast(text) {
+    var el = $('#toast');
+    if (!el) return;
+    el.textContent = text;
+    el.classList.add('show');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(function () { el.classList.remove('show'); }, 1800);
+  }
+
+  /* ---------------- 墙面行 ---------------- */
+  function addWall(data) {
+    data = data || {};
+    var id = ++wallCount;
+    var name = data.name || ('墙面 ' + id);
+    var tr = document.createElement('tr');
+    tr.className = 'row wall';
+    tr.dataset.space = data.space || '';
+    tr.dataset.baseName = name;
+    tr.innerHTML =
+      '<td><input class="wname w-wall" value="' + esc(name) + '" placeholder="墙面编号"><small class="wall-net"></small></td>' +
+      '<td><input class="len w-num" type="number" min="0" step="0.01" value="' + esc(data.len || '') + '" placeholder="0.00"></td>' +
+      '<td><input class="height w-num" type="number" min="0" step="0.01" value="' + esc(data.height || '') + '" placeholder="层高"></td>' +
+      '<td><input class="brickH w-num" type="number" min="0" step="0.01" value="' + esc(data.brickH || '') + '" placeholder="砖墙高"></td>' +
+      '<td><input class="tileH w-num" type="number" min="0" step="0.01" value="' + esc(data.tileH || '') + '" placeholder="贴砖高"></td>' +
+      '<td><input class="aux w-num" type="number" min="0" step="0.01" value="' + esc(data.aux || '') + '" placeholder="可选"></td>' +
+      '<td><button class="delete" type="button">删除</button></td>';
+    $('#wallRows').appendChild(tr);
+    tr.querySelector('.delete').addEventListener('click', function () { removeWall(tr); });
+    tr.querySelector('.wname').addEventListener('input', function (e) { renameWall(tr, e.target.value); });
+    return tr;
+  }
+
+  function addSpaceWalls(room) {
+    for (var i = 1; i <= 4; i++) addWall({ name: room + ' / 墙面 ' + i, space: room });
+  }
+
+  /* 改名时把增删项里的关联键一起改掉，避免变成“待重新关联” */
+  function remapScope(from, to) {
+    if (!from || from === to) return;
+    $$('.calc-item').forEach(function (row) {
+      var sel = row.querySelector('.calc-scope');
+      var current = sel.value || row.dataset.scope || '';
+      if (current !== from) return;
+      row.dataset.scope = to;
+      if ($$('option', sel).some(function (o) { return o.value === to; })) sel.value = to;
+      else sel.value = '';
+    });
+  }
+
+  function renameWall(tr, newName) {
+    var oldName = tr.dataset.baseName;
+    if (!newName || newName === oldName) return;
+    remapScope('wall|' + oldName, 'wall|' + newName);
+    tr.dataset.baseName = newName;
+  }
+
+  function removeWall(tr) {
+    var name = tr.querySelector('.wname').value;
+    $$('.calc-item').forEach(function (row) {
+      var scope = row.querySelector('.calc-scope').value || row.dataset.scope || '';
+      if (scope === 'wall|' + name) row.remove();
+    });
+    tr.remove();
+    refreshMeasurementSelectors();
+    calc();
+  }
+
+  /* ---------------- 空间卡片 ---------------- */
+  function addSpace(name, data) {
+    data = data || {};
+    var displayName = data.name || name;
+    var card = document.createElement('div');
+    card.className = 'space-card';
+    card.dataset.roomName = displayName;
+    card.innerHTML =
+      '<div class="space-title"><input class="space-name" value="' + esc(displayName) + '" aria-label="空间名称">' +
+      '<button class="delete space-delete" type="button">移除</button></div>' +
+      '<div class="space-grid">' +
+      '<div><label>空间长 (cm)</label><input class="space-l" type="number" min="0" step="0.01" value="' + esc(data.l || '') + '" placeholder="长"></div>' +
+      '<div><label>空间宽 (cm)</label><input class="space-w" type="number" min="0" step="0.01" value="' + esc(data.w || '') + '" placeholder="宽"></div>' +
+      '<div><label>实测地面面积 (m²)</label><input class="space-a" type="number" min="0" step="0.01" value="' + esc(data.a || '') + '" placeholder="覆盖长×宽"></div>' +
+      '</div><div class="surface-result"></div>';
+    $('#spaces').appendChild(card);
+    card.querySelector('.space-delete').addEventListener('click', function () { removeSpace(card); });
+    card.querySelector('.space-name').addEventListener('input', function (e) {
+      var oldName = card.dataset.roomName;
+      if (e.target.value === oldName) return;
+      renameSpace(card, oldName, e.target.value);
+    });
+    return card;
+  }
+
+  function renameSpace(card, oldName, newName) {
+    if (!newName) return;
+    $$('.wall').forEach(function (row) {
+      if (row.dataset.space !== oldName) return;
+      var input = row.querySelector('.wname');
+      var oldWall = input.value;
+      var newWall = oldWall.indexOf(oldName) === 0 ? newName + oldWall.slice(oldName.length) : oldWall.replace(oldName, newName);
+      remapScope('wall|' + oldWall, 'wall|' + newWall);
+      input.value = newWall;
+      row.dataset.baseName = newWall;
+      row.dataset.space = newName;
+    });
+    remapScope('floor|' + oldName, 'floor|' + newName);
+    card.dataset.roomName = newName;
+  }
+
+  function removeSpace(card) {
+    var room = card.dataset.roomName;
+    var wallNames = $$('.wall').filter(function (r) { return r.dataset.space === room; })
+      .map(function (r) { return r.querySelector('.wname').value; });
+    $$('.calc-item').forEach(function (row) {
+      var scope = row.querySelector('.calc-scope').value || row.dataset.scope || '';
+      if (scope === 'floor|' + room) { row.remove(); return; }
+      if (wallNames.some(function (w) { return scope === 'wall|' + w; })) row.remove();
+    });
+    $$('.wall').forEach(function (r) { if (r.dataset.space === room) r.remove(); });
+    card.remove();
+    refreshMeasurementSelectors();
+    calc();
+  }
+
+  /* ---------------- 增加 / 扣减行 ---------------- */
+  function addCalcItem(action, data) {
+    data = data || {};
+    var isAdd = action === 'add';
+    var tr = document.createElement('tr');
+    tr.className = 'calc-item ' + (isAdd ? 'calc-add' : 'calc-deduct');
+    tr.dataset.scope = data.scope || '';
+    tr.innerHTML =
+      '<td><div class="calc-name-cell">' +
+      '<select class="calc-preset" aria-label="常用项目名称"></select>' +
+      '<input class="calc-name" value="' + esc(data.name || '') + '" placeholder="选上方项目或自行填写"></div></td>' +
+      '<td><select class="calc-scope"></select></td>' +
+      '<td><input class="calc-a" type="number" min="0" step="0.01" value="' + esc(data.a || '') + '" placeholder="长 / 宽"></td>' +
+      '<td><input class="calc-b" type="number" min="0" step="0.01" value="' + esc(data.b || '') + '" placeholder="宽 / 高"></td>' +
+      '<td><input class="calc-area" readonly value="" placeholder="自动计算"></td>' +
+      '<td><button class="calc-delete" type="button">删除</button></td>';
+    $(isAdd ? '#additionRows' : '#deductionRows').appendChild(tr);
+    tr.querySelector('.calc-delete').addEventListener('click', function () { tr.remove(); calc(); });
+    return tr;
+  }
+
+  /* 按“地面 / 墙面 + 增加 / 扣减”给出常用名称，选中后自动填进名称框 */
+  function syncPresetOptions(row) {
+    var preset = row.querySelector('.calc-preset');
+    if (!preset) return;
+    var action = row.classList.contains('calc-add') ? 'add' : 'deduct';
+    var scope = row.querySelector('.calc-scope').value || '';
+    var type = scope.indexOf('floor|') === 0 ? 'floor' : (scope.indexOf('wall|') === 0 ? 'wall' : '');
+    var sig = action + '|' + type;
+
+    if (row.dataset.presetSig !== sig) {
+      row.dataset.presetSig = sig;
+      var list = (PRESETS[action] && PRESETS[action][type]) || [];
+      preset.innerHTML = '';
+      preset.add(new Option(list.length ? '自定义名称…' : '自定义名称', ''));
+      list.forEach(function (item) { preset.add(new Option(item, item)); });
+    }
+
+    var current = (row.querySelector('.calc-name').value || '').trim();
+    for (var i = 0; i < preset.options.length; i++) {
+      if (preset.options[i].value && preset.options[i].value === current) {
+        preset.selectedIndex = i;
+        return;
+      }
+    }
+    preset.value = '';
+  }
+
+  /* ---------------- 下拉刷新 ---------------- */
+  function refreshMeasurementSelectors() {
+    var unit = $('#unitSelector');
+    var previousUnit = unit.value;
+    unit.innerHTML = '';
+    $$('.space-card').forEach(function (card) {
+      var name = card.querySelector('.space-name').value || '未命名空间';
+      unit.add(new Option(name, name));
+    });
+    if ($$('option', unit).some(function (o) { return o.value === previousUnit; })) unit.value = previousUnit;
+    else if (unit.options.length) unit.selectedIndex = 0;
+
+    var room = unit.value;
+    var measure = $('#measureSelector');
+    var previousMeasure = measure.value;
+    measure.innerHTML = '';
+    if (room) {
+      measure.add(new Option('地面 · ' + room, 'floor|' + room));
+      $$('.wall').filter(function (r) { return r.dataset.space === room; }).forEach(function (row) {
+        var name = row.querySelector('.wname').value || '未命名墙面';
+        measure.add(new Option('墙面 · ' + name, 'wall|' + name));
+      });
+    }
+    if ($$('option', measure).some(function (o) { return o.value === previousMeasure; })) measure.value = previousMeasure;
+    else if (measure.options.length) measure.selectedIndex = 0;
+
+    renderMeasureEditor();
+    calc();
+  }
+
+  /* 增加 / 扣减两张表在页面里是隐藏的静态结构，这里把它搬进当前测量项的编辑器里 */
+  function ensureParking() {
+    var parking = document.getElementById('calcItemParking');
+    if (!parking) {
+      parking = document.createElement('div');
+      parking.id = 'calcItemParking';
+      document.body.appendChild(parking);
+    }
+    return parking;
+  }
+
+  function renderMeasureEditor() {
+    var host = $('#measureEditor');
+    var parking = ensureParking();
+    /* 先把两张表收回停靠区，再清空编辑器，否则会被 innerHTML 一起销毁 */
+    if (addTableWrap) parking.appendChild(addTableWrap);
+    if (dedTableWrap) parking.appendChild(dedTableWrap);
+    host.innerHTML = '';
+
+    var key = $('#measureSelector').value;
+    if (!key) {
+      host.innerHTML = '<div class="empty">请选择单元空间。</div>';
+      return;
+    }
+
+    var fields = [];
+    var titleHtml = '';
+
+    if (key.indexOf('floor|') === 0) {
+      var floorName = key.slice(6);
+      var card = $$('.space-card').filter(function (c) {
+        return c.querySelector('.space-name').value === floorName;
+      })[0];
+      if (!card) {
+        host.innerHTML = '<div class="empty">该空间已不存在，请重新选择。</div>';
+        return;
+      }
+      titleHtml =
+        '<h3>地面 · ' + esc(floorName) + '</h3>' +
+        '<div class="measure-fields">' +
+        '<div><label>地面长 (cm)</label><input id="measureA" type="number" min="0" step="0.01" value="' + esc(card.querySelector('.space-l').value) + '" placeholder="长"></div>' +
+        '<div><label>地面宽 (cm)</label><input id="measureB" type="number" min="0" step="0.01" value="' + esc(card.querySelector('.space-w').value) + '" placeholder="宽"></div>' +
+        '<div><label>实测面积（选填，覆盖长×宽）</label><input id="measureOverride" type="number" min="0" step="0.01" value="' + esc(card.querySelector('.space-a').value) + '" placeholder="自动使用长×宽"></div>' +
+        '</div>' +
+        '<div class="measure-current">大测量面积：<span id="measureBaseValue">0.00</span> m²</div>';
+      fields = [
+        ['#measureA', card.querySelector('.space-l')],
+        ['#measureB', card.querySelector('.space-w')],
+        ['#measureOverride', card.querySelector('.space-a')]
+      ];
+    } else {
+      var wallName = key.slice(5);
+      var wallRow = $$('.wall').filter(function (r) {
+        return r.querySelector('.wname').value === wallName;
+      })[0];
+      if (!wallRow) {
+        host.innerHTML = '<div class="empty">该墙面已不存在，请重新选择。</div>';
+        return;
+      }
+      titleHtml =
+        '<h3>墙面 · ' + esc(wallName) + '</h3>' +
+        '<div class="measure-fields">' +
+        '<div><label>墙长 (cm)</label><input id="measureA" type="number" min="0" step="0.01" value="' + esc(wallRow.querySelector('.len').value) + '" placeholder="墙长"></div>' +
+        '<div><label>瓷片铺贴高度 (cm)</label><input id="measureB" type="number" min="0" step="0.01" value="' + esc(wallRow.querySelector('.tileH').value) + '" placeholder="贴砖高"></div>' +
+        '</div>' +
+        '<div class="measure-current">墙砖大测量面积：<span id="measureBaseValue">0.00</span> m²</div>';
+      fields = [
+        ['#measureA', wallRow.querySelector('.len')],
+        ['#measureB', wallRow.querySelector('.tileH')]
+      ];
+    }
+
+    host.innerHTML = titleHtml +
+      '<div class="measure-actions">' +
+      '<button type="button" class="add" id="editorAdd">＋ 增加部分</button>' +
+      '<button type="button" class="add" id="editorDeduct">－ 扣减部分</button>' +
+      '</div>' +
+      '<p class="measure-tip">地面：增加可选「跳台面积 / 凸出面积」，扣减可选「缩进面积」；墙面：增加可选「跳出面积」，扣减可选「门洞面积 / 窗口面积」。也可以直接在名称框自行填写。</p>' +
+      '<div class="measure-mutations"><h4>当前测量项的增加 / 扣减</h4></div>';
+
+    var mutations = host.querySelector('.measure-mutations');
+    var addTitle = document.createElement('h4');
+    addTitle.textContent = '增加明细';
+    var dedTitle = document.createElement('h4');
+    dedTitle.textContent = '扣减明细';
+    mutations.appendChild(addTitle);
+    if (addTableWrap) mutations.appendChild(addTableWrap);
+    mutations.appendChild(dedTitle);
+    if (dedTableWrap) mutations.appendChild(dedTableWrap);
+
+    /* 编辑器里的输入同步写回隐藏的真实字段 */
+    fields.forEach(function (pair) {
+      var input = host.querySelector(pair[0]);
+      var target = pair[1];
+      if (!input || !target) return;
+      input.addEventListener('input', function () {
+        target.value = input.value;
+        scheduleCalc();
+      });
+    });
+
+    host.querySelector('#editorAdd').addEventListener('click', function () {
+      addCalcItem('add', { scope: key });
+      calc();
+    });
+    host.querySelector('#editorDeduct').addEventListener('click', function () {
+      addCalcItem('deduct', { scope: key });
+      calc();
+    });
+  }
+
+  /* ---------------- 计算 ---------------- */
+  function collectBases() {
+    var bases = [];
+    $$('.space-card').forEach(function (card) {
+      var name = card.querySelector('.space-name').value || '未命名空间';
+      var area = num(card.querySelector('.space-a').value) ||
+        areaM2(card.querySelector('.space-l').value, card.querySelector('.space-w').value);
+      bases.push({ key: 'floor|' + name, type: 'floor', name: '地面 · ' + name, area: area, card: card });
+    });
+    $$('.wall').forEach(function (row) {
+      var name = row.querySelector('.wname').value || '未命名墙面';
+      var area = areaM2(row.querySelector('.len').value, row.querySelector('.tileH').value);
+      bases.push({ key: 'wall|' + name, type: 'wall', name: '墙面 · ' + name, area: area, row: row });
+    });
+    return bases;
+  }
+
+  function calc() {
+    var bases = collectBases();
+    var activeKey = $('#measureSelector').value || '';
+
+    /* 同名空间/墙面会让 key 重复，这里给重复项加后缀，避免合计被重复累加 */
+    var seen = Object.create(null);
+    bases.forEach(function (b) {
+      var key = b.key;
+      var i = 2;
+      while (seen[key]) { key = b.key + '#' + (i++); }
+      seen[key] = true;
+      b.key = key;
+    });
+
+    var spaceTotal = $$('.space-card').reduce(function (sum, card) {
+      return sum + (num(card.querySelector('.space-a').value) ||
+        areaM2(card.querySelector('.space-l').value, card.querySelector('.space-w').value));
+    }, 0);
+    var spaceTotalInput = $('#spaceFloorTotal');
+    if (spaceTotalInput) spaceTotalInput.value = fmt(spaceTotal);
+
+    /* 关联下拉：只有测量基数列表变化时才重建 */
+    var signature = bases.map(function (b) { return b.key; }).join('\u0001');
+    var rebuild = signature !== lastScopeSignature;
+    lastScopeSignature = signature;
+
+    $$('.calc-item').forEach(function (row) {
+      var sel = row.querySelector('.calc-scope');
+      var old = sel.value || row.dataset.scope || '';
+      if (rebuild || !sel.options.length) {
+        sel.innerHTML = '';
+        bases.forEach(function (b) { sel.add(new Option(b.name, b.key)); });
+        if (bases.some(function (b) { return b.key === old; })) sel.value = old;
+        else if (old) { sel.add(new Option('原记录项目（待重新关联）', old)); sel.value = old; }
+        else if (bases.length) sel.selectedIndex = 0;
+      }
+      row.dataset.scope = sel.value;
+      syncPresetOptions(row);
+      row.hidden = !activeKey || sel.value !== activeKey;
+      var a = num(row.querySelector('.calc-a').value);
+      var b = num(row.querySelector('.calc-b').value);
+      row.querySelector('.calc-area').value = (a && b) ? fmt(a * b / 10000) : '';
+    });
+
+    var items = $$('.calc-item').map(function (row) {
+      return {
+        action: row.classList.contains('calc-add') ? 'add' : 'deduct',
+        name: row.querySelector('.calc-name').value || '未命名项目',
+        scope: row.dataset.scope || '',
+        area: areaM2(row.querySelector('.calc-a').value, row.querySelector('.calc-b').value)
+      };
+    });
+
+    var totals = new Map();
+    bases.forEach(function (b) { totals.set(b.key, { add: 0, deduct: 0, net: b.area }); });
+    items.forEach(function (it) {
+      var t = totals.get(it.scope);
+      if (!t) return;
+      if (it.action === 'add') t.add += it.area;
+      else t.deduct += it.area;
+    });
+    bases.forEach(function (b) {
+      var t = totals.get(b.key);
+      t.net = Math.max(0, b.area + t.add - t.deduct);
+      var text = '大测量 ' + fmt(b.area) + ' + 增加 ' + fmt(t.add) + ' − 扣减 ' + fmt(t.deduct) + ' = 净面积 ' + fmt(t.net) + ' m²';
+      if (b.card) {
+        var surface = b.card.querySelector('.surface-result');
+        if (surface) surface.textContent = text;
+      }
+      if (b.row) {
+        var net = b.row.querySelector('.wall-net');
+        if (net) net.textContent = text;
+      }
+    });
+
+    function sumOf(type, field) {
+      return bases.filter(function (b) { return b.type === type; }).reduce(function (s, b) {
+        return s + (field === 'base' ? b.area : totals.get(b.key)[field]);
+      }, 0);
+    }
+    var floorBase = sumOf('floor', 'base');
+    var tileGross = sumOf('wall', 'base');
+    var floorNet = sumOf('floor', 'net');
+    var tileNet = sumOf('wall', 'net');
+    var floorAdd = sumOf('floor', 'add');
+    var wallAdd = sumOf('wall', 'add');
+    var floorCut = sumOf('floor', 'deduct');
+    var wallCut = sumOf('wall', 'deduct');
+
+    var tileUnitArea = areaM2($('#tileWidth').value, $('#tileHeight').value);
+    var wasteRate = num($('#tileWaste').value);
+    var tileAreaTotal = floorNet + tileNet;
+    var netPieces = tileUnitArea ? Math.ceil(tileAreaTotal / tileUnitArea) : 0;
+    var buyPieces = tileUnitArea ? Math.ceil(tileAreaTotal * (1 + wasteRate / 100) / tileUnitArea) : 0;
+
+    $('#baseFloor').textContent = fmt(floorBase) + ' m²';
+    $('#baseWall').textContent = fmt(tileGross) + ' m²';
+    $('#sumFloor').textContent = fmt(floorNet) + ' m²';
+    $('#sumTile').textContent = fmt(tileNet) + ' m²';
+    $('#sumGross').textContent = fmt(tileGross) + ' m²';
+    $('#estimateArea').textContent = fmt(tileAreaTotal) + ' m²';
+    $('#tileUnitArea').textContent = tileUnitArea ? fmt(tileUnitArea) + ' m²' : '— m²';
+    $('#tileNetPieces').textContent = tileUnitArea ? netPieces + ' 片' : '— 片';
+    $('#tileBuyPieces').textContent = tileUnitArea ? buyPieces + ' 片' : '— 片';
+    $('#tileQtyHint').textContent = tileUnitArea
+      ? '规格 ' + $('#tileWidth').value + ' × ' + $('#tileHeight').value + ' cm；按 ' + fmt(wasteRate) + '% 损耗估算。'
+      : '填写瓷片宽、高规格后自动估算。';
+
+    /* 当前测量项的大测量基数（原来这个数字永远停在 0.00） */
+    var baseValueEl = $('#measureBaseValue');
+    if (baseValueEl) {
+      var currentBase = bases.filter(function (b) { return b.key === activeKey; })[0];
+      baseValueEl.textContent = fmt(currentBase ? currentBase.area : 0);
+    }
+
+    var line = function (label, val, neg) {
+      return '<div class="resultline"><span>' + esc(label) + '</span><strong class="' + (neg ? 'negative' : '') + '">' +
+        (neg ? '− ' : '') + fmt(val) + ' m²</strong></div>';
+    };
+    var byType = function (type) {
+      return bases.filter(function (b) { return b.type === type; }).map(function (b) {
+        var t = totals.get(b.key);
+        return '<div class="resultline"><span>' + esc(b.name) +
+          '<br><small>大测量 ' + fmt(b.area) + ' + 增 ' + fmt(t.add) + ' − 扣 ' + fmt(t.deduct) + '</small></span>' +
+          '<strong>' + fmt(t.net) + ' m²</strong></div>';
+      }).join('');
+    };
+
+    $('#quantityDetails').innerHTML =
+      '<h4>地砖：大测量 + 增加 − 扣减</h4>' + byType('floor') +
+      line('地砖大测量合计', floorBase) +
+      line('地砖增加合计', floorAdd) +
+      line('地砖扣减合计', floorCut, true) +
+      line('地砖净面积', floorNet).replace('resultline', 'resultline total') +
+      '<hr style="border:0;border-top:1px solid #dce5df;margin:10px 0">' +
+      '<h4>墙砖：大测量 + 增加 − 扣减</h4>' + byType('wall') +
+      line('墙砖大测量合计', tileGross) +
+      line('墙砖增加合计', wallAdd) +
+      line('墙砖扣减合计', wallCut, true) +
+      line('墙砖净面积', tileNet).replace('resultline', 'resultline total');
+
+    $('#dedDetails').innerHTML = items.length
+      ? items.map(function (x) {
+        var base = bases.filter(function (b) { return b.key === x.scope; })[0];
+        return '<div class="resultline"><span>' + esc(x.name) +
+          '<br><small>' + (x.action === 'add' ? '增加' : '扣减') + ' · ' + esc(base ? base.name : '未选择测量基数') + '</small></span>' +
+          '<strong class="' + (x.action === 'add' ? '' : 'negative') + '">' +
+          (x.action === 'add' ? '+' : '−') + ' ' + fmt(x.area) + ' m²</strong></div>';
+      }).join('')
+      : '<div class="empty">尚未添加增加或扣减项目</div>';
+
+    var perim = $$('.wall').reduce(function (s, r) { return s + num(r.querySelector('.len').value); }, 0);
+    var check = num($('#perimeterCheck').value);
+    var diff = $('#closureDiff').value;
+    $('#checks').innerHTML =
+      '<span class="chip">墙段长度合计：' + fmt(perim) + ' cm</span>' +
+      (check ? '<span class="chip">周长核对：' + fmt(check) + ' cm · 差值 ' + fmt(perim - check) + ' cm</span>' : '') +
+      (diff !== '' ? '<span class="chip">草图闭合差：' + esc(diff) + ' cm</span>' : '') +
+      '<span class="chip">瓷片类型 / 规格：' + esc($('#tileType').value || '瓷片') + ' ' +
+      esc($('#tileWidth').value || '—') + ' × ' + esc($('#tileHeight').value || '—') + ' cm</span>';
+
+    renderPlan();
+    scheduleSave();
+  }
+
+  /* 键盘输入合并到一帧里算一次，避免每个键都重算两遍 */
+  function scheduleCalc() {
+    if (calcQueued) return;
+    calcQueued = true;
+    setTimeout(function () {
+      calcQueued = false;
+      calc();
+    }, 0);
+  }
+
+  /* ---------------- 户型图（隐藏面板，仅作兼容） ---------------- */
+  function renderPlan() {
+    var host = $('#plan');
+    if (!host) return;
+    var spaces = $$('.space-card');
+    if (!spaces.length) {
+      host.innerHTML = '<span class="plan-empty">请先选择户型并添加空间</span>';
+      return;
+    }
+    host.innerHTML = spaces.map(function (card, i) {
+      var name = card.querySelector('.space-name').value || ('空间 ' + (i + 1));
+      var area = num(card.querySelector('.space-a').value) ||
+        areaM2(card.querySelector('.space-l').value, card.querySelector('.space-w').value);
+      var wallCountForRoom = $$('.wall').filter(function (r) { return r.dataset.space === name; }).length;
+      return '<button type="button" class="plan-room ' + (selectedPlanRoom === name ? 'selected' : '') + '" data-room="' + esc(name) + '">' +
+        '<em>' + (i === 0 ? '⌂' : '◇') + '</em><b>' + esc(name) + '</b>' +
+        '<small>' + (area ? fmt(area) + ' m²' : '待填写尺寸') + (wallCountForRoom ? ' · ' + wallCountForRoom + ' 面墙' : '') + '</small></button>';
+    }).join('');
+  }
+
+  /* 原来这里调用的 addDed 从未定义，点击后会抛 ReferenceError */
+  function insertComponent(room) {
+    if (!activeComponent) return;
+    var firstWall = $$('.wall').filter(function (r) { return r.dataset.space === room; })[0];
+    var isFloorTarget = activeComponent.target === 'floor';
+    var scope = 'floor|' + room;
+    if (!isFloorTarget && firstWall) scope = 'wall|' + firstWall.querySelector('.wname').value;
+    var isAdd = activeComponent.kind === 'tileadd';
+    var row = addCalcItem(isAdd ? 'add' : 'deduct', { name: activeComponent.name, scope: scope });
+    calc();
+    if (row) {
+      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var input = row.querySelector('.calc-a');
+      if (input) input.focus();
+    }
+  }
+
+  function addDed() {
+    addCalcItem('deduct', { scope: $('#measureSelector').value });
+    calc();
+  }
+
+  /* ---------------- 户型预设 ---------------- */
+  function presetSpaces(type) {
+    var names = LAYOUTS[type] || LAYOUTS.single;
+    $('#spaces').innerHTML = '';
+    $('#wallRows').innerHTML = '';
+    /* 原来这里没清，切换户型后残留的增删项会显示在明细里却不参与合计 */
+    $('#additionRows').innerHTML = '';
+    $('#deductionRows').innerHTML = '';
+    wallCount = 0;
+    lastScopeSignature = null;
+    names.forEach(function (name) { addSpace(name); });
+    names.forEach(function (room) { addSpaceWalls(room); });
+    savedLayout = type;
+    refreshMeasurementSelectors();
+  }
+
+  function hasEnteredData() {
+    if ($$('.calc-item').length) return true;
+    var hasSpace = $$('.space-card').some(function (c) {
+      return num(c.querySelector('.space-l').value) || num(c.querySelector('.space-w').value) || num(c.querySelector('.space-a').value);
+    });
+    if (hasSpace) return true;
+    return $$('.wall').some(function (r) {
+      return num(r.querySelector('.len').value) || num(r.querySelector('.tileH').value);
+    });
+  }
+
+  /* ---------------- 存取 ---------------- */
+  function readRecords() {
+    try {
+      var raw = localStorage.getItem(RECORDS_KEY);
+      var list = raw ? JSON.parse(raw) : [];
+      return Array.isArray(list) ? list : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function writeRecords(list) {
+    localStorage.setItem(RECORDS_KEY, JSON.stringify(list));
+  }
+
+  function collectState() {
+    var fields = {};
+    FIELD_IDS.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) fields[id] = el.value;
+    });
+
+    var walls = $$('.wall').map(function (row) {
+      var out = { space: row.dataset.space || '' };
+      var selectors = ['.wname', '.len', '.height', '.brickH', '.tileH', '.aux'];
+      var keys = ['name', 'len', 'height', 'brickH', 'tileH', 'aux'];
+      keys.forEach(function (k, i) {
+        var el = row.querySelector(selectors[i]);
+        out[k] = el ? el.value : '';
+      });
+      return out;
+    });
+
+    var spaces = $$('.space-card').map(function (card) {
+      return {
+        name: card.querySelector('.space-name').value,
+        l: card.querySelector('.space-l').value,
+        w: card.querySelector('.space-w').value,
+        a: card.querySelector('.space-a').value
+      };
+    });
+
+    var items = $$('.calc-item').map(function (row) {
+      var sel = row.querySelector('.calc-scope');
+      return {
+        action: row.classList.contains('calc-add') ? 'add' : 'deduct',
+        name: row.querySelector('.calc-name').value,
+        scope: sel.value || row.dataset.scope || '',
+        a: row.querySelector('.calc-a').value,
+        b: row.querySelector('.calc-b').value
+      };
+    });
+
+    return { fields: fields, spaces: spaces, walls: walls, items: items };
+  }
+
+  function saveNow(show) {
+    try {
+      var current = collectState();
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(current));
+      localStorage.setItem(ACTIVE_KEY, activeRecordId || '');
+      if (activeRecordId && !isRestoring) {
+        var list = readRecords();
+        var idx = list.findIndex(function (r) { return r.id === activeRecordId; });
+        if (idx >= 0) {
+          list[idx].state = current;
+          list[idx].updated = Date.now();
+          writeRecords(list);
+        }
+      }
+      renderRecords();
+      if (show) toast('当前单元已保存');
+      return true;
+    } catch (err) {
+      console.warn('[保存失败]', err);
+      if (show) toast('保存失败：浏览器存储不可用');
+      return false;
+    }
+  }
+
+  function scheduleSave() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () { saveNow(false); }, 500);
+  }
+
+  function syncWasteFields() {
+    var wasteA = $('#tileWaste');
+    var wasteB = $('#tileWasteEstimate');
+    if (wasteA && wasteB) wasteB.value = wasteA.value;
+  }
+
+  function loadData(saved) {
+    isRestoring = true;
+    saved = saved || {};
+
+    ['#spaces', '#wallRows', '#additionRows', '#deductionRows', '#dedRows'].forEach(function (sel) {
+      var el = $(sel);
+      if (el) el.innerHTML = '';
+    });
+    wallCount = 0;
+    lastScopeSignature = null;
+
+    var floorEl = document.getElementById('floor');
+    if (floorEl) floorEl.value = '';
+    Object.keys(saved.fields || {}).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.value = saved.fields[id];
+    });
+    savedLayout = $('#layoutPreset').value || 'single';
+    syncWasteFields();
+
+    (saved.spaces || []).forEach(function (x) { addSpace(x.name, x); });
+    (saved.walls || []).forEach(function (x) { addWall(x); });
+
+    var items = saved.items || (saved.deds || []).map(function (x) {
+      return {
+        action: x.kind === 'tileadd' ? 'add' : 'deduct',
+        name: x.name,
+        scope: ['floorwall', 'floorcolumn'].indexOf(x.kind) >= 0 ? 'floor' : 'wall',
+        a: x.w,
+        b: x.h
+      };
+    });
+    items.forEach(function (x) { addCalcItem(x.action || 'deduct', x); });
+
+    isRestoring = false;
+    refreshMeasurementSelectors();
+  }
+
+  function loadState() {
+    var saved = null;
+    try {
+      var raw = localStorage.getItem(DRAFT_KEY) || localStorage.getItem(LEGACY_DRAFT_KEY);
+      if (raw) saved = JSON.parse(raw);
+    } catch (e) {
+      saved = null;
+    }
+    try {
+      activeRecordId = localStorage.getItem(ACTIVE_KEY) || null;
+    } catch (e) {
+      activeRecordId = null;
+    }
+    if (saved && typeof saved === 'object') loadData(saved);
+  }
+
+  /* ---------------- 记录 ---------------- */
+  function renderRecords() {
+    var host = $('#recordsList');
+    if (!host) return;
+    var list = readRecords().slice().sort(function (a, b) {
+      return (b.updated || b.created || 0) - (a.updated || a.created || 0);
+    });
+    var counter = $('#recordCount');
+    if (counter) counter.textContent = list.length + ' 条记录';
+
+    var html = list.length
+      ? list.map(function (r) {
+        var picked = !!selectedRecordIds[r.id];
+        return '<article class="record-card ' + (r.id === activeRecordId ? 'current' : '') + '">' +
+          '<label class="record-pick" title="勾选后可批量导出 / 删除">' +
+          '<input type="checkbox" data-pick="' + esc(r.id) + '"' + (picked ? ' checked' : '') + '></label>' +
+          '<div class="record-info"><b>' + esc(r.name || '未命名单元') + '</b>' +
+          '<small>最近修改：' + new Date(r.updated || r.created || Date.now()).toLocaleString('zh-CN', { hour12: false }) + '</small></div>' +
+          '<div class="record-actions">' +
+          '<button class="record-open" type="button" data-open="' + esc(r.id) + '">回看 / 修改</button>' +
+          '<button class="record-del" type="button" data-del="' + esc(r.id) + '">删除</button>' +
+          '</div></article>';
+      }).join('')
+      : '<div class="record-empty">还没有保存的单元。录入后点顶部“保存单元”。</div>';
+
+    if (html === lastRecordsHtml) {
+      updateSelectionUi();
+      return;
+    }
+    lastRecordsHtml = html;
+    host.innerHTML = html;
+
+    $$('[data-open]', host).forEach(function (btn) {
+      btn.addEventListener('click', function () { openRecord(btn.dataset.open); });
+    });
+    $$('[data-pick]', host).forEach(function (box) {
+      box.addEventListener('change', function () {
+        if (box.checked) selectedRecordIds[box.dataset.pick] = true;
+        else delete selectedRecordIds[box.dataset.pick];
+        updateSelectionUi();
+      });
+    });
+    $$('[data-del]', host).forEach(function (btn) {
+      btn.addEventListener('click', function () { requestDelete([btn.dataset.del]); });
+    });
+    updateSelectionUi();
+  }
+
+  /* ---------------- 勾选与删除 ---------------- */
+  function updateSelectionUi() {
+    var list = readRecords();
+    var ids = list.map(function (r) { return r.id; });
+    /* 记录被删掉后同步清掉勾选状态 */
+    Object.keys(selectedRecordIds).forEach(function (id) {
+      if (ids.indexOf(id) < 0) delete selectedRecordIds[id];
+    });
+    var count = Object.keys(selectedRecordIds).length;
+
+    var box = $('#selectAllRecords');
+    if (box) {
+      box.checked = ids.length > 0 && count === ids.length;
+      box.indeterminate = count > 0 && count < ids.length;
+      box.disabled = ids.length === 0;
+    }
+    var label = $('#selectedCount');
+    if (label) label.textContent = '已选 ' + count + ' / ' + ids.length + ' 条';
+    ['#exportBatch', '#exportEach', '#deleteSelected'].forEach(function (sel) {
+      var btn = $(sel);
+      if (btn) btn.disabled = count === 0;
+    });
+  }
+
+  function requestDelete(ids) {
+    if (!ids.length) return;
+    var names = readRecords().filter(function (r) { return ids.indexOf(r.id) >= 0; })
+      .map(function (r) { return r.name || '未命名单元'; });
+    if (!names.length) {
+      toast('记录已不存在');
+      lastRecordsHtml = null;
+      renderRecords();
+      return;
+    }
+    var msg = ids.length === 1
+      ? '确定删除「' + names[0] + '」？删除后无法恢复。'
+      : '确定删除选中的 ' + ids.length + ' 条记录？删除后无法恢复。';
+    if (!window.confirm(msg)) return;
+    deleteRecords(ids);
+  }
+
+  function deleteRecords(ids) {
+    var list = readRecords().filter(function (r) { return ids.indexOf(r.id) < 0; });
+    try {
+      writeRecords(list);
+    } catch (e) {
+      toast('删除失败：浏览器存储不可用');
+      return;
+    }
+    ids.forEach(function (id) { delete selectedRecordIds[id]; });
+
+    var activeDeleted = !!activeRecordId && ids.indexOf(activeRecordId) >= 0;
+    if (activeDeleted) {
+      activeRecordId = null;
+      try { localStorage.setItem(ACTIVE_KEY, ''); } catch (e) { /* 忽略 */ }
+    }
+    lastRecordsHtml = null;
+    renderRecords();
+    updateSelectionUi();
+    toast(activeDeleted
+      ? '已删除 ' + ids.length + ' 条记录；当前单元转为未保存状态'
+      : '已删除 ' + ids.length + ' 条记录');
+  }
+
+  function saveRecord(options) {
+    var silent = !!(options && options.silent);
+    var name = ($('#layoutName').value || '').trim() || '未命名单元';
+    try {
+      var current = collectState();
+      var list = readRecords();
+      var now = Date.now();
+      var record = activeRecordId ? list.filter(function (r) { return r.id === activeRecordId; })[0] : null;
+
+      if (record) {
+        record.name = name;
+        record.state = current;
+        record.updated = now;
+      } else {
+        activeRecordId = 'unit-' + now + '-' + Math.random().toString(36).slice(2, 7);
+        list.push({ id: activeRecordId, name: name, state: current, created: now, updated: now });
+      }
+
+      writeRecords(list);
+      localStorage.setItem(ACTIVE_KEY, activeRecordId);
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(current));
+      renderRecords();
+      if (!silent) toast('单元记录已保存');
+      return true;
+    } catch (err) {
+      console.warn('[保存失败]', err);
+      if (!silent) toast('保存失败：浏览器存储不可用');
+      return false;
+    }
+  }
+
+  function openRecord(id) {
+    var record = readRecords().filter(function (r) { return r.id === id; })[0];
+    if (!record || !record.state) {
+      toast('记录内容缺失，无法打开');
+      renderRecords();
+      return;
+    }
+    activeRecordId = id;
+    loadData(record.state);
+    try {
+      localStorage.setItem(ACTIVE_KEY, id);
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(record.state));
+    } catch (e) { /* 忽略存储异常 */ }
+    renderRecords();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    toast('已打开「' + (record.name || '未命名单元') + '」，修改会自动保存');
+  }
+
+  function newUnit() {
+    if (activeRecordId) saveRecord({ silent: true });
+    activeRecordId = null;
+    try { localStorage.setItem(ACTIVE_KEY, ''); } catch (e) { /* 忽略 */ }
+
+    var preset = $('#layoutPreset').value || 'single';
+    var names = LAYOUTS[preset] || LAYOUTS.single;
+    var fresh = {
+      fields: {
+        roomName: '房间 1', roomL: '', roomW: '', floorArea: '', floorNoTile: '0',
+        wallFoot: '0', columnFoot: '0', floorExisting: '0',
+        perimeterCheck: '', closureDiff: '',
+        layoutName: '', layoutPreset: preset, floor: '',
+        tileType: '瓷片', tileWidth: '', tileHeight: '', tileWaste: '5'
+      },
+      spaces: names.map(function (n) { return { name: n }; }),
+      walls: names.reduce(function (acc, room) {
+        for (var i = 1; i <= 4; i++) acc.push({ name: room + ' / 墙面 ' + i, space: room });
+        return acc;
+      }, []),
+      items: []
+    };
+    loadData(fresh);
+    renderRecords();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    toast('已新建测量单元');
+  }
+
+  /* ---------------- 导出（XLSX） ---------------- */
+  function exportCurrentXlsx() {
+    var current = collectState();
+    var name = (current.fields.layoutName || '').trim() || '未命名单元';
+    var blob = makeXlsxBlob([{ name: name, state: current }]);
+    downloadBlob(blob, safeFileName(name) + '-瓷片面积.xlsx');
+    toast('已导出 XLSX');
+  }
+
+  /* ---------------- 批量导出 ---------------- */
+  /* 从存档数据（而不是当前页面）算出各项面积，列结构与单条导出保持一致 */
+  function analyze(st) {
+    st = st || {};
+    var bases = [];
+    var map = Object.create(null);
+
+    (st.spaces || []).forEach(function (sp) {
+      var name = sp.name || '未命名空间';
+      var key = 'floor|' + name;
+      var b = { key: key, type: 'floor', name: '地面 · ' + name, area: num(sp.a) || areaM2(sp.l, sp.w), add: 0, deduct: 0 };
+      bases.push(b);
+      if (!map[key]) map[key] = b;
+    });
+    (st.walls || []).forEach(function (w) {
+      var name = w.name || '未命名墙面';
+      var key = 'wall|' + name;
+      var b = { key: key, type: 'wall', name: '墙面 · ' + name, area: areaM2(w.len, w.tileH), add: 0, deduct: 0 };
+      bases.push(b);
+      if (!map[key]) map[key] = b;
+    });
+
+    var items = (st.items || []).map(function (it) {
+      return {
+        action: it.action === 'add' ? 'add' : 'deduct',
+        name: it.name || '未命名项目',
+        scope: it.scope || '',
+        a: it.a,
+        b: it.b,
+        area: areaM2(it.a, it.b),
+        base: map[it.scope] || null
+      };
+    });
+    items.forEach(function (it) {
+      if (!it.base) return;
+      if (it.action === 'add') it.base.add += it.area;
+      else it.base.deduct += it.area;
+    });
+    bases.forEach(function (b) { b.net = Math.max(0, b.area + b.add - b.deduct); });
+
+    var sum = function (type, field) {
+      return bases.filter(function (b) { return b.type === type; })
+        .reduce(function (s, b) { return s + (field === 'base' ? b.area : b[field]); }, 0);
+    };
+
+    var fields = st.fields || {};
+    var unitArea = areaM2(fields.tileWidth, fields.tileHeight);
+    var waste = num(fields.tileWaste);
+    var floorNet = sum('floor', 'net');
+    var tileNet = sum('wall', 'net');
+    var areaTotal = floorNet + tileNet;
+
+    return {
+      bases: bases,
+      items: items,
+      map: map,
+      floorBase: sum('floor', 'base'),
+      tileGross: sum('wall', 'base'),
+      floorNet: floorNet,
+      tileNet: tileNet,
+      areaTotal: areaTotal,
+      netPieces: unitArea ? Math.ceil(areaTotal / unitArea) : '',
+      buyPieces: unitArea ? Math.ceil(areaTotal * (1 + waste / 100) / unitArea) : ''
+    };
+  }
+
+  /* ---------------- XLSX 生成（自包含，无外部依赖） ---------------- */
+  var XLSX_COLS = ['A', 'B', 'C', 'D', 'E', 'F'];
+  var XLSX_HEADERS = ['分类', '项目 / 名称', '说明 / 尺寸', '面积 (m²)', '净面积 (m²)', '片数'];
+
+  var XLSX_STYLES =
+    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+    '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+    '<fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts>' +
+    '<fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFFDF0F7"/><bgColor indexed="64"/></patternFill></fill></fills>' +
+    '<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>' +
+    '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>' +
+    '<cellXfs count="3">' +
+    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>' +
+    '<xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/>' +
+    '<xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/>' +
+    '</cellXfs></styleSheet>';
+
+  function xmlEsc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[c];
+    });
+  }
+
+  function utf8Bytes(str) {
+    var out = [];
+    for (var i = 0; i < str.length; i++) {
+      var c = str.charCodeAt(i);
+      if (c < 0x80) out.push(c);
+      else if (c < 0x800) { out.push(0xC0 | (c >> 6), 0x80 | (c & 0x3F)); }
+      else if (c >= 0xD800 && c <= 0xDBFF) {
+        var c2 = str.charCodeAt(i + 1);
+        var cp = 0x10000 + ((c - 0xD800) << 10) + (c2 - 0xDC00);
+        out.push(0xF0 | (cp >> 18), 0x80 | ((cp >> 12) & 0x3F), 0x80 | ((cp >> 6) & 0x3F), 0x80 | (cp & 0x3F));
+        i++;
+      } else {
+        out.push(0xE0 | (c >> 12), 0x80 | ((c >> 6) & 0x3F), 0x80 | (c & 0x3F));
+      }
+    }
+    return new Uint8Array(out);
+  }
+
+  var CRC32_TABLE = (function () {
+    var t = new Uint32Array(256);
+    for (var n = 0; n < 256; n++) {
+      var c = n;
+      for (var k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      t[n] = c >>> 0;
+    }
+    return t;
+  })();
+
+  function crc32(bytes) {
+    var c = 0xFFFFFFFF;
+    for (var i = 0; i < bytes.length; i++) c = (c >>> 8) ^ CRC32_TABLE[(c ^ bytes[i]) & 0xFF];
+    return (c ^ 0xFFFFFFFF) >>> 0;
+  }
+
+  /* 极简 ZIP（STORE 不压缩），打包 xlsx 所需的所有部件 */
+  function buildZip(files) {
+    var localParts = [];
+    var centralParts = [];
+    var offset = 0;
+    files.forEach(function (f) {
+      var nameBytes = utf8Bytes(f.name);
+      var data = f.data;
+      var crc = crc32(data);
+      var size = data.length;
+
+      var local = new Uint8Array(30 + nameBytes.length);
+      var lv = new DataView(local.buffer);
+      lv.setUint32(0, 0x04034b50, true);
+      lv.setUint16(4, 20, true);
+      lv.setUint16(6, 0x0800, true);
+      lv.setUint16(8, 0, true);
+      lv.setUint16(10, 0, true);
+      lv.setUint16(12, 0x21, true);
+      lv.setUint32(14, crc, true);
+      lv.setUint32(18, size, true);
+      lv.setUint32(22, size, true);
+      lv.setUint16(26, nameBytes.length, true);
+      lv.setUint16(28, 0, true);
+      local.set(nameBytes, 30);
+
+      var central = new Uint8Array(46 + nameBytes.length);
+      var cv = new DataView(central.buffer);
+      cv.setUint32(0, 0x02014b50, true);
+      cv.setUint16(4, 20, true);
+      cv.setUint16(6, 20, true);
+      cv.setUint16(8, 0x0800, true);
+      cv.setUint16(10, 0, true);
+      cv.setUint16(12, 0, true);
+      cv.setUint16(14, 0x21, true);
+      cv.setUint32(16, crc, true);
+      cv.setUint32(20, size, true);
+      cv.setUint32(24, size, true);
+      cv.setUint16(28, nameBytes.length, true);
+      cv.setUint16(30, 0, true);
+      cv.setUint16(32, 0, true);
+      cv.setUint16(34, 0, true);
+      cv.setUint16(36, 0, true);
+      cv.setUint32(38, 0, true);
+      cv.setUint32(42, offset, true);
+      central.set(nameBytes, 46);
+
+      localParts.push(local, data);
+      centralParts.push(central);
+      offset += local.length + data.length;
+    });
+
+    var centralSize = centralParts.reduce(function (s, p) { return s + p.length; }, 0);
+    var eocd = new Uint8Array(22);
+    var ev = new DataView(eocd.buffer);
+    ev.setUint32(0, 0x06054b50, true);
+    ev.setUint16(4, 0, true);
+    ev.setUint16(6, 0, true);
+    ev.setUint16(8, files.length, true);
+    ev.setUint16(10, files.length, true);
+    ev.setUint32(12, centralSize, true);
+    ev.setUint32(16, offset, true);
+    ev.setUint16(20, 0, true);
+
+    var total = offset + centralSize + 22;
+    var result = new Uint8Array(total);
+    var pos = 0;
+    localParts.forEach(function (p) { result.set(p, pos); pos += p.length; });
+    centralParts.forEach(function (p) { result.set(p, pos); pos += p.length; });
+    result.set(eocd, pos);
+    return result;
+  }
+
+  function downloadBlob(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+  }
+
+  /* 数值写入：四舍五入到 2 位小数，0 留空；片数是整数 */
+  function nv(v) {
+    var x = round2(v);
+    return x !== 0 ? String(x) : '';
+  }
+
+  function tCell(col, val) {
+    return '<c r="' + col + '" t="inlineStr"><is><t xml:space="preserve">' + xmlEsc(val) + '</t></is></c>';
+  }
+  function nCell(col, val) {
+    if (val === '' || val == null) return '';
+    return '<c r="' + col + '"><v>' + val + '</v></c>';
+  }
+  function rowXml(r, cells, o) {
+    o = o || {};
+    var attrs = ' r="' + r + '"';
+    if (o.level) attrs += ' outlineLevel="' + o.level + '"';
+    if (o.hidden) attrs += ' hidden="1"';
+    if (o.collapsed) attrs += ' collapsed="1"';
+    if (o.style) attrs += ' s="' + o.style + '" customFormat="1"';
+    return '<row' + attrs + '>' + cells.join('') + '</row>';
+  }
+
+  /* 导出结构：顶部「汇总」直接看结果 → 下方按「地面 / 墙面 / 增加 / 扣减」分类汇总，点 + 展开明细 */
+  function sheetXml(records) {
+    var rows = [];
+    var r = 1;
+    var multi = records.length > 1;
+
+    rows.push(rowXml(r++, XLSX_HEADERS.map(function (h, i) { return tCell(XLSX_COLS[i], h); }), { style: 2 }));
+
+    var tot = { floor: 0, tile: 0, floorGross: 0, tileGross: 0, add: 0, deduct: 0, area: 0, net: 0, buy: 0 };
+    var cats = {
+      floor: { label: '地面', items: [] },
+      wall: { label: '墙面', items: [] },
+      add: { label: '增加', items: [] },
+      deduct: { label: '扣减', items: [] }
+    };
+
+    records.forEach(function (rec) {
+      var st = rec.state || {};
+      var a = analyze(st);
+      var floorOf = ((st.fields && st.fields.floor) || '').trim();
+      var prefix = multi ? (rec.name || '未命名单元') + (floorOf ? ' · ' + floorOf : '') + ' · ' : '';
+
+      (st.spaces || []).forEach(function (sp) {
+        var b = a.map['floor|' + (sp.name || '未命名空间')];
+        var base = num(sp.a) || areaM2(sp.l, sp.w);
+        cats.floor.items.push({
+          name: prefix + (sp.name || '未命名空间'),
+          plain: sp.name || '未命名空间',
+          note: '长 ' + fmt(num(sp.l)) + ' cm × 宽 ' + fmt(num(sp.w)) + ' cm' + (num(sp.a) ? '（实测 ' + fmt(num(sp.a)) + ' m²）' : ''),
+          base: base, net: b ? b.net : 0
+        });
+      });
+      (st.walls || []).forEach(function (w) {
+        var b = a.map['wall|' + (w.name || '未命名墙面')];
+        var base = areaM2(w.len, w.tileH);
+        cats.wall.items.push({
+          name: prefix + (w.name || '未命名墙面'),
+          plain: w.name || '未命名墙面',
+          note: '墙长 ' + fmt(num(w.len)) + ' cm × 铺贴高 ' + fmt(num(w.tileH)) + ' cm',
+          base: base, net: b ? b.net : 0
+        });
+      });
+      a.items.forEach(function (it) {
+        var note = (it.base ? '关联 ' + it.base.name + '；' : '未关联；') + '尺寸 ' + fmt(num(it.a)) + ' cm × ' + fmt(num(it.b)) + ' cm';
+        var item = { name: prefix + it.name, plain: it.name || '未命名项目', note: note, base: it.area, net: it.area };
+        if (it.action === 'add') cats.add.items.push(item);
+        else cats.deduct.items.push(item);
+      });
+
+      var addSum = 0, deductSum = 0;
+      a.items.forEach(function (it) { if (it.action === 'add') addSum += it.area; else deductSum += it.area; });
+      tot.floor += a.floorNet;
+      tot.tile += a.tileNet;
+      tot.floorGross += a.floorBase;
+      tot.tileGross += a.tileGross;
+      tot.add += addSum;
+      tot.deduct += deductSum;
+      tot.area += a.areaTotal;
+      tot.net += Number(a.netPieces) || 0;
+      tot.buy += Number(a.buyPieces) || 0;
+    });
+
+    function namesOf(cat) {
+      var list = cat.items.map(function (it) {
+        return it.plain + (it.net != null ? ' ' + fmt(it.net) + ' m²' : '');
+      });
+      return list.length ? list.join('、') : '—';
+    }
+    function sumRow(cat, label, note, d, e, f, bold) {
+      var c = [];
+      c.push(tCell('A', cat));
+      c.push(tCell('B', label));
+      c.push(tCell('C', note || ''));
+      c.push(d == null || d === '' ? '' : nCell('D', d));
+      c.push(e == null || e === '' ? '' : nCell('E', e));
+      c.push(f == null || f === '' ? '' : nCell('F', f));
+      rows.push(rowXml(r++, c, bold ? { style: 1 } : {}));
+    }
+
+    var floorSet = {};
+    var floorList = [];
+    records.forEach(function (rec) {
+      var f = ((rec.state && rec.state.fields && rec.state.fields.floor) || '').trim();
+      if (f && !floorSet[f]) { floorSet[f] = true; floorList.push(f); }
+    });
+    sumRow('汇总', '楼层', floorList.length ? floorList.join('、') : '—', '', '', '', false);
+
+    var firstFields = (records[0] && records[0].state && records[0].state.fields) || {};
+    if (!multi && firstFields.tileWidth && firstFields.tileHeight) {
+      sumRow('汇总', '瓷片规格', firstFields.tileWidth + ' × ' + firstFields.tileHeight + ' cm', '', '', '', false);
+    }
+    if (!multi) {
+      sumRow('汇总', '损耗率', (firstFields.tileWaste != null && firstFields.tileWaste !== '') ? firstFields.tileWaste + ' %' : '—', '', '', '', false);
+    }
+
+    sumRow('地面', '地砖净面积', namesOf(cats.floor), '', String(round2(tot.floor)), '', true);
+    sumRow('墙面', '墙砖净面积', namesOf(cats.wall), '', String(round2(tot.tile)), '', true);
+    sumRow('增加', '增加面积合计', namesOf(cats.add), '', String(round2(tot.add)), '', true);
+    sumRow('扣减', '扣减面积合计', namesOf(cats.deduct), '', String(round2(-tot.deduct)), '', true);
+    sumRow('合计', '瓷片铺贴总面积', '地砖 + 墙砖净面积', '', String(round2(tot.area)), '', true);
+    sumRow('汇总', '理论用量', '总面积 ÷ 单片面积，向上取整', '', '', tot.net ? String(Math.round(tot.net)) : '', true);
+    sumRow('汇总', '建议采购', '已含损耗，向上取整', '', '', tot.buy ? String(Math.round(tot.buy)) : '', true);
+
+    rows.push(rowXml(r++, []));
+
+    /* 按房间汇总：每个房间的地面（地砖）/ 墙面（墙砖）瓷片面积 */
+    rows.push(rowXml(r++, [tCell('A', '按房间汇总'), tCell('B', '每个房间的地面（地砖）/ 墙面（墙砖）瓷片面积')], { style: 2 }));
+    rows.push(rowXml(r++, XLSX_HEADERS.map(function (h, i) { return tCell(XLSX_COLS[i], h); }), { style: 2 }));
+
+    var roomOrder = [];
+    var roomMap = {};
+    records.forEach(function (rec) {
+      var st = rec.state || {};
+      var a = analyze(st);
+      var floorOf = ((st.fields && st.fields.floor) || '').trim();
+      var prefix = multi ? (rec.name || '未命名单元') + (floorOf ? ' · ' + floorOf : '') + ' · ' : '';
+      (st.spaces || []).forEach(function (sp) {
+        var name = sp.name || '未命名空间';
+        var b = a.map['floor|' + name];
+        var rk = prefix + '|' + name;
+        var entry = roomMap[rk];
+        if (!entry) { entry = { name: prefix + name, floorArea: 0, floorNet: 0, wallArea: 0, wallNet: 0, wallCount: 0, floorNote: '' }; roomMap[rk] = entry; roomOrder.push(rk); }
+        entry.floorArea += num(sp.a) || areaM2(sp.l, sp.w);
+        entry.floorNet += b ? b.net : 0;
+        entry.floorNote = '长 ' + fmt(num(sp.l)) + ' cm × 宽 ' + fmt(num(sp.w)) + ' cm' + (num(sp.a) ? '（实测 ' + fmt(num(sp.a)) + ' m²）' : '');
+      });
+      (st.walls || []).forEach(function (w) {
+        var room = (w.space || '').trim() || ((w.name || '').split(' / ')[0]) || '未命名房间';
+        var b = a.map['wall|' + (w.name || '未命名墙面')];
+        var rk = prefix + '|' + room;
+        var entry = roomMap[rk];
+        if (!entry) { entry = { name: prefix + room, floorArea: 0, floorNet: 0, wallArea: 0, wallNet: 0, wallCount: 0, floorNote: '' }; roomMap[rk] = entry; roomOrder.push(rk); }
+        entry.wallArea += areaM2(w.len, w.tileH);
+        entry.wallNet += b ? b.net : 0;
+        entry.wallCount += 1;
+      });
+    });
+
+    roomOrder.forEach(function (rk) {
+      var e = roomMap[rk];
+      if (e.floorArea > 0 || e.floorNet > 0) {
+        rows.push(rowXml(r++, [
+          tCell('A', '地面（地砖）'),
+          tCell('B', e.name),
+          tCell('C', e.floorNote),
+          nCell('D', nv(e.floorArea)),
+          nCell('E', nv(e.floorNet))
+        ]));
+      }
+      if (e.wallCount > 0) {
+        rows.push(rowXml(r++, [
+          tCell('A', '墙面（墙砖）'),
+          tCell('B', e.name),
+          tCell('C', e.wallCount + ' 面墙合计'),
+          nCell('D', nv(e.wallArea)),
+          nCell('E', nv(e.wallNet))
+        ]));
+      }
+    });
+
+    rows.push(rowXml(r++, []));
+
+    rows.push(rowXml(r++, [tCell('A', '分类明细'), tCell('B', '点行号左侧的「+」展开各项')], { style: 2 }));
+
+    function catGroup(cat, dTotal, eTotal, sign) {
+      var has = cat.items.length > 0;
+      var cells = [];
+      cells.push(tCell('A', cat.label));
+      cells.push(tCell('B', cat.label + ' · 合计（' + cat.items.length + ' 项）'));
+      cells.push(tCell('C', ''));
+      if (dTotal != null) cells.push(nCell('D', String(round2(dTotal))));
+      cells.push(nCell('E', String(round2(eTotal))));
+      rows.push(rowXml(r++, cells, { style: 2, collapsed: has }));
+
+      cat.items.forEach(function (it) {
+        var c = [];
+        c.push(tCell('A', cat.label));
+        c.push(tCell('B', it.name));
+        c.push(tCell('C', it.note));
+        c.push(nCell('D', nv(it.base)));
+        c.push(nCell('E', nv(sign * it.net)));
+        rows.push(rowXml(r++, c, { level: 1, hidden: true }));
+      });
+    }
+
+    catGroup(cats.floor, tot.floorGross, tot.floor, 1);
+    catGroup(cats.wall, tot.tileGross, tot.tile, 1);
+    catGroup(cats.add, null, tot.add, 1);
+    catGroup(cats.deduct, null, -tot.deduct, -1);
+
+    var lastRef = 'F' + (r - 1);
+    var cols = '<cols>' +
+      '<col min="1" max="1" width="10" customWidth="1"/>' +
+      '<col min="2" max="2" width="28" customWidth="1"/>' +
+      '<col min="3" max="3" width="40" customWidth="1"/>' +
+      '<col min="4" max="4" width="12" customWidth="1"/>' +
+      '<col min="5" max="5" width="12" customWidth="1"/>' +
+      '<col min="6" max="6" width="9" customWidth="1"/>' +
+      '</cols>';
+
+    return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+      '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+      '<sheetPr><outlinePr summaryBelow="0" summaryRight="0"/></sheetPr>' +
+      '<dimension ref="A1:' + lastRef + '"/>' +
+      cols +
+      '<sheetData>' + rows.join('') + '</sheetData>' +
+      '</worksheet>';
+  }
+
+  function makeXlsxBlob(records) {
+    var files = [
+      { name: '[Content_Types].xml', data: utf8Bytes('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>') },
+      { name: '_rels/.rels', data: utf8Bytes('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>') },
+      { name: 'xl/workbook.xml', data: utf8Bytes('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="瓷片面积统计" sheetId="1" r:id="rId1"/></sheets></workbook>') },
+      { name: 'xl/_rels/workbook.xml.rels', data: utf8Bytes('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>') },
+      { name: 'xl/styles.xml', data: utf8Bytes(XLSX_STYLES) },
+      { name: 'xl/worksheets/sheet1.xml', data: utf8Bytes(sheetXml(records)) }
+    ];
+    return new Blob([buildZip(files)], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  }
+
+  function safeFileName(name) {
+    return String(name || '未命名单元').replace(/[\\/:*?"<>|]/g, '_').slice(0, 60) || '未命名单元';
+  }
+
+  function selectedRecords() {
+    var ids = Object.keys(selectedRecordIds);
+    return readRecords().filter(function (r) { return ids.indexOf(r.id) >= 0 && r.state; })
+      .sort(function (a, b) { return (b.updated || b.created || 0) - (a.updated || a.created || 0); });
+  }
+
+  /* 合并导出：所有选中单元合成一张 XLSX，每个单元一行汇总，点 + 可展开明细 */
+  function exportBatchMerged() {
+    var records = selectedRecords();
+    if (!records.length) {
+      toast('请先勾选要导出的单元');
+      return;
+    }
+    var now = new Date();
+    var pad = function (v) { return (v < 10 ? '0' : '') + v; };
+    var stamp = String(now.getFullYear()) + pad(now.getMonth() + 1) + pad(now.getDate());
+    downloadBlob(makeXlsxBlob(records), '扎心测量-瓷片面积-批量汇总-' + stamp + '.xlsx');
+    toast('已合并导出 ' + records.length + ' 个单元');
+  }
+
+  /* 逐个导出：每个单元一个独立 XLSX */
+  function exportEachSelected() {
+    var records = selectedRecords();
+    if (!records.length) {
+      toast('请先勾选要导出的单元');
+      return;
+    }
+    records.forEach(function (rec, i) {
+      setTimeout(function () {
+        var name = rec.name || '未命名单元';
+        downloadBlob(makeXlsxBlob([{ name: name, state: rec.state || {} }]), safeFileName(name) + '-瓷片面积.xlsx');
+        if (i === records.length - 1) toast('已逐个导出 ' + records.length + ' 个文件');
+      }, i * 400);
+    });
+  }
+
+  /* ---------------- 事件绑定 ---------------- */
+  function bindEvents() {
+    $('#saveBtn').addEventListener('click', function () { saveRecord(); });
+    $('#newUnitBtn').addEventListener('click', newUnit);
+    $('#printBtn').addEventListener('click', function () { window.print(); });
+    $('#exportBtn').addEventListener('click', exportCurrentXlsx);
+
+    /* 记录批量操作 */
+    var selectAll = $('#selectAllRecords');
+    if (selectAll) {
+      selectAll.addEventListener('change', function (e) {
+        var on = e.target.checked;
+        readRecords().forEach(function (r) {
+          if (on) selectedRecordIds[r.id] = true;
+          else delete selectedRecordIds[r.id];
+        });
+        lastRecordsHtml = null;
+        renderRecords();
+      });
+    }
+    var exportBatchBtn = $('#exportBatch');
+    if (exportBatchBtn) exportBatchBtn.addEventListener('click', exportBatchMerged);
+    var exportEachBtn = $('#exportEach');
+    if (exportEachBtn) exportEachBtn.addEventListener('click', exportEachSelected);
+    var deleteSelectedBtn = $('#deleteSelected');
+    if (deleteSelectedBtn) {
+      deleteSelectedBtn.addEventListener('click', function () {
+        var ids = Object.keys(selectedRecordIds);
+        if (!ids.length) {
+          toast('请先勾选要删除的单元');
+          return;
+        }
+        requestDelete(ids);
+      });
+    }
+
+    $('#toggleRecords').addEventListener('click', function () {
+      var panel = $('.records-panel');
+      if (!panel) return;
+      panel.classList.toggle('open');
+      this.textContent = panel.classList.contains('open') ? '收起记录' : '展开记录';
+    });
+
+    $('#layoutPreset').addEventListener('change', function (e) {
+      var next = e.target.value;
+      if (hasEnteredData()) {
+        var ok = window.confirm('切换户型会清空当前已填写的尺寸和增加 / 扣减项（已保存的单元不受影响），确定继续吗？');
+        if (!ok) {
+          e.target.value = savedLayout;
+          return;
+        }
+      }
+      presetSpaces(next);
+      toast('已切换户型：' + (LAYOUTS[next] ? LAYOUTS[next].join(' / ') : ''));
+    });
+
+    $('#unitSelector').addEventListener('change', refreshMeasurementSelectors);
+    $('#measureSelector').addEventListener('change', function () {
+      renderMeasureEditor();
+      calc();
+    });
+
+    $('#addWall').addEventListener('click', function () { addWall(); refreshMeasurementSelectors(); });
+    $('#addAddition').addEventListener('click', function () { addCalcItem('add', { scope: $('#measureSelector').value }); calc(); });
+    $('#addDeduction').addEventListener('click', function () { addCalcItem('deduct', { scope: $('#measureSelector').value }); calc(); });
+    $('#addDed').addEventListener('click', addDed);
+
+    /* 两个损耗率输入框互相同步 */
+    var wasteA = $('#tileWaste');
+    var wasteB = $('#tileWasteEstimate');
+    if (wasteA && wasteB) {
+      wasteA.addEventListener('input', function () { wasteB.value = wasteA.value; });
+      wasteB.addEventListener('input', function () { wasteA.value = wasteB.value; });
+    }
+
+    /* 常用名称下拉：选中即写入名称框 */
+    document.addEventListener('change', function (e) {
+      var preset = e.target;
+      if (!preset || !preset.matches || !preset.matches('.calc-preset')) return;
+      var row = preset.closest ? preset.closest('.calc-item') : null;
+      if (!row) return;
+      var nameInput = row.querySelector('.calc-name');
+      if (preset.value) {
+        nameInput.value = preset.value;
+        /* 选完常用名称直接跳到尺寸一，少点一次 */
+        var sizeInput = row.querySelector('.calc-a');
+        if (sizeInput) sizeInput.focus();
+      } else {
+        nameInput.focus();
+        nameInput.select();
+      }
+      scheduleCalc();
+    });
+
+    $$('.component').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        $$('.component').forEach(function (x) { x.classList.remove('active'); });
+        btn.classList.add('active');
+        activeComponent = { kind: btn.dataset.kind, name: btn.dataset.name, target: btn.dataset.target };
+        var prompt = $('.plan-prompt');
+        if (prompt) prompt.textContent = '已选择 ' + btn.dataset.name + '，再点击户型图中的房间';
+      });
+    });
+
+    var plan = $('#plan');
+    if (plan) {
+      plan.addEventListener('click', function (e) {
+        var room = e.target.closest('.plan-room');
+        if (!room) return;
+        selectedPlanRoom = room.dataset.room;
+        if (activeComponent) insertComponent(selectedPlanRoom);
+        else renderPlan();
+      });
+    }
+
+    document.addEventListener('input', function (e) {
+      if (e.target && e.target.matches && e.target.matches('input, select')) scheduleCalc();
+    });
+    document.addEventListener('change', function (e) {
+      if (e.target && e.target.matches && e.target.matches('select')) scheduleCalc();
+    });
+
+    /* 关页面前把还没落盘的改动写进去 */
+    window.addEventListener('beforeunload', function () {
+      if (saveTimer) {
+        clearTimeout(saveTimer);
+        saveTimer = 0;
+        saveNow(false);
+      }
+    });
+  }
+
+  /* ---------------- 启动 ---------------- */
+  function init() {
+    addTableWrap = $('#additionRows').closest('.tablewrap');
+    dedTableWrap = $('#deductionRows').closest('.tablewrap');
+
+    bindEvents();
+    loadState();
+    renderRecords();
+
+    if (!$$('.space-card').length) presetSpaces($('#layoutPreset').value || 'single');
+
+    if (!$$('.wall').length) {
+      var firstRoom = $$('.space-card').map(function (c) { return c.querySelector('.space-name').value; })[0];
+      if (firstRoom) addSpaceWalls(firstRoom);
+    }
+
+    refreshMeasurementSelectors();
+    savedLayout = $('#layoutPreset').value || savedLayout;
+    syncWasteFields();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script></body></html>

@@ -1,0 +1,5 @@
+/work/
+/outputs/
+.wrangler/
+node_modules/
+*.log
